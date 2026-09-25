@@ -28,9 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const passwordError = document.querySelector('#passwordError');
 
 
-    /* =========================
-       TOGGLE PASSWORD
-    ========================= */
+    /* TOGGLE PASSWORD */
 
     const togglePassword = document.querySelector('.toggle-password');
 
@@ -53,9 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    /* =========================
-       FORM VALIDATION
-    ========================= */
+    /* FORM VALIDATION*/
 
     if (form) {
 
@@ -64,9 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let isValid = true;
 
 
-            /* =========================
-               NAME
-            ========================= */
+            /* NAME*/
 
             const nameValue = input.value.trim();
 
@@ -97,9 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
-            /* =========================
-               EMAIL
-            ========================= */
+            /* EMAIL*/
 
             const emailValue = inputEmail.value.trim();
 
@@ -130,9 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
-            /* =========================
-               PHONE
-            ========================= */
+            /* PHONE */
 
             const phoneValue = inputPhone.value.trim();
 
@@ -163,9 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
-            /* =========================
-               PASSWORD
-            ========================= */
+            /*PASSWORD*/
 
             const passwordValue = inputPassword.value;
 
@@ -196,9 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
-            /* =========================
-               STOP SUBMISSION
-            ========================= */
+            /* STOP SUBMISSION */
 
             if (!isValid) {
 
