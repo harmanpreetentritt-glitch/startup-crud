@@ -26,8 +26,6 @@
                 <h1>Student Registration</h1>
                 <p>Create your student account to get started.</p>
             </div>
-
-
             <form class="signup-form" method="POST" action="{{ url('/signup') }}">
 
                 @csrf
