@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+
+class ProductController extends Controller
+{
+    public function index()
+{
+    $products = Product::all();
+
+    return view('products.product', compact('products'));
+}
+public function edit($id)
+{
+    $product = Product::find($id);
+
+    return view('products.edit', compact('product'));
+}
+
+public function update(Request $request, $id)
+{
+    $product = Product::find($id);
+
+    $product->name = $request->name;
+    $product->price = $request->price;
+
+    $product->save();
+
+    return redirect('/products');
+}
+public function destroy($id)
+{
+    $product = Product::find($id);
+
+    $product->delete();
+
+    return redirect('/products');
+}
+}
+

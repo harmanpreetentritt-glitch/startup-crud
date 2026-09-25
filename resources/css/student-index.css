@@ -1,0 +1,652 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    min-height: 100vh;
+
+    background: #f5f6f8;
+
+    font-family: 'Times New Roman', Times, serif;
+
+    color: #2B303B;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.top-bar {
+    height: 72px;
+
+    padding: 0 45px;
+
+    background: #2B303B;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+
+.logo i {
+    font-size: 24px;
+}
+
+
+.dashboard-link {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 17px;
+
+    background: white;
+
+    color: #2B303B;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    width: 92%;
+
+    max-width: 1350px;
+
+    margin: 42px auto;
+}
+
+
+/* =========================
+   PAGE TOP
+========================= */
+
+.page-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+
+.page-top h1 {
+    font-size: 36px;
+
+    margin-bottom: 7px;
+}
+
+
+.page-top p {
+    color: #777;
+
+    font-size: 16px;
+}
+
+
+.separator {
+    margin: 0 6px;
+
+    color: #aaa;
+}
+
+
+/* =========================
+   ADD STUDENT
+========================= */
+
+.add-student {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px 18px;
+
+    background: #2B303B;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+.add-student:hover {
+    opacity: 0.9;
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+.success-message {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    background: #e9f7ee;
+
+    color: #26733e;
+
+    padding: 12px 16px;
+
+    border-left: 4px solid #3b8f59;
+
+    margin-bottom: 20px;
+
+    border-radius: 5px;
+}
+
+
+/* =========================
+   RECORD SECTION
+========================= */
+
+.records-section {
+    background: white;
+
+    border: 1px solid #e3e5e8;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar {
+    min-height: 75px;
+
+    padding: 15px 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+.record-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.record-title h2 {
+    font-size: 20px;
+}
+
+
+.student-count {
+    min-width: 27px;
+
+    height: 27px;
+
+    padding: 0 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eef0f3;
+
+    color: #555;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+    width: 280px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dcdfe3;
+
+    border-radius: 6px;
+
+    background: white;
+}
+
+
+.search-box i {
+    color: #999;
+
+    font-size: 14px;
+}
+
+
+.search-box input {
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    color: #333;
+}
+
+
+.search-box input::placeholder {
+    color: #999;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+
+table {
+    width: 100%;
+
+    min-width: 1000px;
+
+    border-collapse: collapse;
+}
+
+
+thead {
+    background: #f8f9fa;
+}
+
+
+th {
+    padding: 14px 20px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    color: #666;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    font-weight: bold;
+
+    border-bottom: 1px solid #e2e3e5;
+}
+
+
+td {
+    padding: 15px 20px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    font-size: 15px;
+
+    color: #444;
+
+    vertical-align: middle;
+}
+
+
+tbody tr:hover {
+    background: #fafbfc;
+}
+
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================
+   ID
+========================= */
+
+.id-column {
+    color: #888;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   STUDENT
+========================= */
+
+.student-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-weight: bold;
+}
+
+
+.avatar {
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: #2B303B;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   EMAIL
+========================= */
+
+.email {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #666;
+}
+
+
+.email i {
+    color: #999;
+}
+
+
+/* =========================
+   PHONE
+========================= */
+
+.phone {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #666;
+}
+
+
+.phone i {
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   COURSE
+========================= */
+
+.course {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-weight: bold;
+
+    color: #444;
+}
+
+
+.course i {
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+.no-course {
+    color: #aaa;
+
+    font-style: italic;
+}
+
+
+/* =========================
+   AGE
+========================= */
+
+.age {
+    color: #555;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.actions form {
+    margin: 0;
+}
+
+
+.action-btn {
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 5px;
+
+    border: none;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+
+/* Edit */
+
+.action-btn.edit {
+    background: #eef0f3;
+
+    color: #2B303B;
+}
+
+
+.action-btn.edit:hover {
+    background: #2B303B;
+
+    color: white;
+}
+
+
+/* Delete */
+
+.action-btn.delete {
+    background: #f2f2f2;
+
+    color: #555;
+}
+
+
+.action-btn.delete:hover {
+    background: #ddd;
+
+    color: #222;
+}
+
+
+/* =========================
+   NO RESULTS
+========================= */
+
+.no-results {
+    padding: 45px;
+
+    text-align: center;
+
+    color: #999;
+}
+
+
+.no-results i {
+    font-size: 30px;
+
+    margin-bottom: 10px;
+}
+
+
+.no-results p {
+    font-size: 16px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .top-bar {
+        padding: 0 20px;
+    }
+
+    .logo span {
+        font-size: 18px;
+    }
+
+    .container {
+        width: 94%;
+
+        margin: 30px auto;
+    }
+
+    .page-top {
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .page-top h1 {
+        font-size: 30px;
+    }
+
+    .toolbar {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+}

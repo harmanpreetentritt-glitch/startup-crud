@@ -1,0 +1,341 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    min-height: 100vh;
+
+    background-color: #f5f6f8;
+
+    font-family: 'Times New Roman', Times, serif;
+
+    color: #2B303B;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.top-bar {
+    width: 100%;
+    height: 76px;
+
+    padding: 0 50px;
+
+    background-color: #2B303B;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Logo */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    color: white;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    letter-spacing: 0.3px;
+}
+
+.logo i {
+    font-size: 25px;
+}
+
+
+/* Logout */
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 18px;
+
+    background-color: white;
+
+    color: #2B303B;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #e9eaec;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.dashboard-container {
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: 55px auto;
+}
+
+
+/* =========================
+   WELCOME SECTION
+========================= */
+
+.welcome-section {
+    margin-bottom: 40px;
+}
+
+.small-title {
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    color: #777;
+
+    margin-bottom: 8px;
+}
+
+.welcome-section h1 {
+    font-size: 38px;
+
+    margin-bottom: 8px;
+
+    color: #2B303B;
+}
+
+.welcome-text {
+    font-size: 17px;
+
+    color: #777;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   CARDS CONTAINER
+========================= */
+
+.dashboard-cards {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 28px;
+}
+
+
+/* =========================
+   DASHBOARD CARD
+========================= */
+
+.dashboard-card {
+    background-color: white;
+
+    padding: 32px;
+
+    border-radius: 14px;
+
+    border: 1px solid #e6e7e9;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+
+    transition: 0.25s;
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================
+   CARD ICON
+========================= */
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 12px;
+
+    background-color: #eef0f3;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+}
+
+.card-icon i {
+    font-size: 27px;
+
+    color: #2B303B;
+}
+
+
+/* =========================
+   CARD CONTENT
+========================= */
+
+.card-content {
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.card-content h2 {
+    font-size: 25px;
+
+    margin-bottom: 12px;
+
+    color: #2B303B;
+}
+
+.card-content p {
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    color: #777;
+
+    max-width: 450px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   CARD BUTTON
+========================= */
+
+.card-btn {
+    width: fit-content;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: auto;
+
+    padding: 11px 18px;
+
+    background-color: #2B303B;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.card-btn:hover {
+    opacity: 0.9;
+
+    gap: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 750px) {
+
+    .top-bar {
+        padding: 0 20px;
+    }
+
+    .logo span {
+        font-size: 18px;
+    }
+
+    .logo i {
+        font-size: 21px;
+    }
+
+    .dashboard-container {
+        width: 92%;
+
+        margin: 35px auto;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-section h1 {
+        font-size: 32px;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .logo span {
+        display: none;
+    }
+
+    .top-bar {
+        height: 70px;
+    }
+
+    .dashboard-card {
+        padding: 25px;
+    }
+
+}
