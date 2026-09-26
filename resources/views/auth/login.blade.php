@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,6 +12,7 @@
     <script src="https://kit.fontawesome.com/e5045e0eb5.js" crossorigin="anonymous"></script>
 
     @vite(['resources/css/login.css', 'resources/js/login.js'])
+
 </head>
 
 <body>
@@ -34,9 +36,15 @@
 
 
             <!-- Login Form -->
-            <form class="login-form" method="POST" action="{{url('/courses')  }}" novalidate>
+            <form
+                class="login-form"
+                method="POST"
+                action="{{ url('/login') }}"
+                novalidate
+            >
 
                 @csrf
+
 
                 <!-- Email -->
                 <div class="form-group">
@@ -48,17 +56,21 @@
                         id="email"
                         name="email"
                         placeholder="you@example.com"
-                        required
+                        value="{{ old('email') }}"
                     >
 
+                    <!-- JavaScript Email Error -->
                     <span id="emailError" class="field-error"></span>
-                    
 
+                    <!-- Laravel Email Error -->
+                    @error('email')
+                        <span class="field-error">
+                            {{ $message }}
+                        </span>
+                    @enderror
 
                 </div>
-                 @error('email')
-                        <span style="color:red;">{{ $message }}</span>
-                    @enderror
+
 
                 <!-- Password -->
                 <div class="form-group">
@@ -72,18 +84,22 @@
                             id="password"
                             name="password"
                             placeholder="Enter your password"
-                            required
                         >
 
                     </div>
 
+                    <!-- JavaScript Password Error -->
                     <span id="passwordError" class="field-error"></span>
-                   
+
+                    <!-- Laravel Password Error -->
+                    @error('password')
+                        <span class="field-error">
+                            {{ $message }}
+                        </span>
+                    @enderror
 
                 </div>
-                    @error('password')
-                        <span style="color:red;">{{ $message }}</span>
-                    @enderror
+
 
                 <!-- Login Button -->
                 <button type="submit" class="btn-login">
@@ -98,7 +114,7 @@
 
                 Don't have an account?
 
-                <a href="{{ route('auth.login') }}">
+                <a href="{{ route('signup') }}">
                     Register
                 </a>
 
@@ -111,8 +127,3 @@
 </body>
 
 </html>
-
-
-
-
-

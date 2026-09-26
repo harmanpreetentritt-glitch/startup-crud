@@ -30,27 +30,24 @@ class AuthController extends Controller
 
     // Login
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ]);
 
-        if (Auth::attempt([
-            'email' => $request->email,
-            'password' => $request->password,
-        ])) {
+    if (Auth::attempt($credentials)) {
 
-            // Regenerate session after login
-            $request->session()->regenerate();
+        $request->session()->regenerate();
 
-            return redirect('/dashboard');
-        }
+        return redirect()->route('dashboard');
 
-        return back()->withErrors([
-            'email' => 'Invalid email or password.',
-        ]);
     }
+
+    return back()->withErrors([
+        'email' => 'The email or password is incorrect.',
+    ])->withInput();
+}
 
 
     // Logout

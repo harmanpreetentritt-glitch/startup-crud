@@ -14,60 +14,60 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     form.addEventListener('submit', function (event) {
-        event.preventDefault();
+
+        let isValid = true;
+
+
         // Email Validation
+
         const emailValue = inputEmail.value.trim();
 
         if (emailValue === '') {
 
-            event.preventDefault();
-
-            emailError.innerHTML = `
-                <span>Email is required.</span>
-            `;
+            emailError.textContent = 'Email is required.';
+            isValid = false;
 
         } else if (!emailPattern.test(emailValue)) {
 
-            event.preventDefault();
-
-            emailError.innerHTML = `
-                <span>Enter a valid email.</span>
-            `;
+            emailError.textContent = 'Enter a valid email.';
+            isValid = false;
 
         } else {
 
-            emailError.innerHTML = '';
+            emailError.textContent = '';
 
         }
 
 
         // Password Validation
+
         const passwordValue = inputPassword.value;
 
         if (passwordValue === '') {
 
-            event.preventDefault();
-
-            passwordError.innerHTML = `
-                <span>Password is required.</span>
-            `;
+            passwordError.textContent = 'Password is required.';
+            isValid = false;
 
         } else if (passwordValue.length < 6) {
 
-            event.preventDefault();
+            passwordError.textContent =
+                'Password must be at least 6 characters.';
 
-            passwordError.innerHTML = `
-                <span>Password must be at least 6 characters.</span>
-            `;
+            isValid = false;
 
         } else {
 
-            passwordError.innerHTML = '';
+            passwordError.textContent = '';
 
         }
-         window.location.href="/dashboard";
+
+
+        // Stop form if JavaScript validation fails
+
+        if (!isValid) {
+            event.preventDefault();
+        }
 
     });
-  
 
 });

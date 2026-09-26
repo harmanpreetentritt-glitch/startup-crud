@@ -1,80 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Edit Student</title>
+
+    @vite([
+        'resources/css/edit-student.css',
+        'resources/js/edit-student.js'
+    ])
+
 </head>
+
 <body>
 
-    <h1>Edit Student</h1>
+    <!-- Header -->
 
-    <form action="{{ url('/students/' . $student->id) }}" method="POST">
+    <div class="student-header">
 
-        @csrf
-        @method('PUT')
+        <div class="student-title">
 
-        <label>Name:</label>
-        <input type="text" name="name" value="{{ old('name', $student->name) }}">
+            <h1>Edit Student</h1>
 
-        @error('name')
-            <span style="color:red;">{{ $message }}</span>
-        @enderror
+            <p>Update student information</p>
 
-        <br><br>
+        </div>
 
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ old('email', $student->email) }}">
+        <a href="{{ url('/students') }}" class="back-btn">
+            Back to Students
+        </a>
 
-        @error('email')
-            <span style="color:red;">{{ $message }}</span>
-        @enderror
+    </div>
 
-        <br><br>
 
-        <label>Phone:</label>
-        <input type="text" name="phone" value="{{ old('phone', $student->phone) }}">
+    <!-- Edit Student -->
 
-        @error('phone')
-            <span style="color:red;">{{ $message }}</span>
-        @enderror
+    <div class="edit-container">
 
-        <br><br>
+        <div class="edit-card">
 
-    <label>Course</label>
+            <div class="card-heading">
 
-<select name="course_id" required>
+                <h2>Student Details</h2>
 
-    <option value="">Select Course</option>
+                <p>Edit the information below and update the student.</p>
 
-    @foreach($courses as $course)
-        <option value="{{ $course->id }}"
-            {{ $student->course_id == $course->id ? 'selected' : '' }}>
-            {{ $course->name }}
-        </option>
-    @endforeach
+            </div>
 
-</select>
 
-@error('course_id')
-    <span style="color:red;">{{ $message }}</span>
-@enderror
+            <form
+                class="student-form"
+                action="{{ url('/students/' . $student->id) }}"
+                method="POST"
+                novalidate
+            >
 
-<br><br>
+                @csrf
+                @method('PUT')
 
-        <br><br>
 
-        <label>Age:</label>
-        <input type="number" name="age" value="{{ old('age', $student->age) }}">
+                <!-- Name -->
 
-        @error('age')
-            <span style="color:red;">{{ $message }}</span>
-        @enderror
+                <div class="form-group">
 
-        <br><br>
+                    <label for="name">
+                        Name
+                    </label>
 
-        <button type="submit">Update Student</button>
-        <a href="{{ url('/students') }}">Cancel</a>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ old('name', $student->name) }}"
+                        placeholder="Enter student name"
+                    >
 
-    </form>
+                    <span id="nameError" class="field-error"></span>
+
+                    @error('name')
+                        <span class="field-error">
+                            {{ $message }}
+                        </span>
+                    @enderror
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ old('email', $student->email) }}"
+                        placeholder="Enter email address"
+                    >
+
+                    <span id="emailError" class="field-error"></span>
+
+                    @error('email')
+                        <span class="field-error">
+                            {{ $message }}
+                        </span>
+                    @enderror
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value="{{ old('phone', $student->phone) }}"
+                        placeholder="Enter 10-digit phone number"
+                    >
+
+                    <span id="phoneError" class="field-error"></span>
+
+                    @error('phone')
+                        <span class="field-error">
+                            {{ $message }}
+                        </span>
+                    @enderror
+
+                </div>
+
+
+                <!-- Course -->
+
+                <div class="form-group">
+
+                    <label for="course_id">
+                        Course
+                    </label>
+
+                    <select
+                        id="course_id"
+                        name="course_id"
+                    >
+
+                        <option value="">
+                            Select Course
+                        </option>
+
+                        @foreach($courses as $course)
+
+                            <option
+                                value="{{ $course->id }}"
+                                {{ $student->course_id == $course->id ? 'selected' : '' }}
+                            >
+                                {{ $course->name }}
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                    <span id="courseError" class="field-error"></span>
+
+                    @error('course_id')
+                        <span class="field-error">
+                            {{ $message }}
+                        </span>
+                    @enderror
+
+                </div>
+
+
+                <!-- Age -->
+
+                <div class="form-group">
+
+                    <label for="age">
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        value="{{ old('age', $student->age) }}"
+                        placeholder="Enter age"
+                    >
+
+                    <span id="ageError" class="field-error"></span>
+
+                    @error('age')
+                        <span class="field-error">
+                            {{ $message }}
+                        </span>
+                    @enderror
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="{{ url('/students') }}"
+                        class="cancel-btn">
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="update-btn">
+                        Update Student
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

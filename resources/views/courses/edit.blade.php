@@ -7,7 +7,7 @@
 
     <title>Edit Course</title>
 
-    @vite(['resources/css/edit.css'])
+    @vite(['resources/css/edit.css','resources/js/edit.js'])
 </head>
 
 <body>
@@ -24,7 +24,6 @@
         </a>
 
     </div>
-
 
     <div class="edit-course-container">
 
@@ -224,7 +223,6 @@
     </div>
 
 
-    @vite(['resources/js/edit.js'])
 
 </body>
 

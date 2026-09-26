@@ -1,0 +1,275 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #f4f6f9;
+    font-family: "Times New Roman", Times, serif;
+    color: #2B303B;
+}
+
+
+/* ================= HEADER ================= */
+
+.student-header {
+    min-height: 75px;
+    background-color: #2B303B;
+
+    padding: 15px 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.student-title h1 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 3px;
+}
+
+.student-title p {
+    color: #d5d8dc;
+    font-size: 15px;
+}
+
+
+/* ================= BACK BUTTON ================= */
+
+.back-btn {
+    text-decoration: none;
+    background-color: white;
+    color: #2B303B;
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #e9ebee;
+}
+
+
+/* ================= CONTAINER ================= */
+
+.edit-container {
+    width: 100%;
+    padding: 40px 45px;
+
+    display: flex;
+    justify-content: center;
+}
+
+
+/* ================= CARD ================= */
+
+.edit-card {
+    width: 100%;
+    max-width: 700px;
+
+    background-color: white;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ================= CARD HEADING ================= */
+
+.card-heading {
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    padding-bottom: 18px;
+}
+
+.card-heading h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.card-heading p {
+    color: #777;
+    font-size: 15px;
+}
+
+
+/* ================= FORM ================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d5d8dc;
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #2B303B;
+}
+
+
+/* ================= PASSWORD ================= */
+
+.password-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.password-wrapper input {
+    flex: 1;
+}
+
+.toggle-password {
+    padding: 11px 15px;
+
+    border: none;
+    border-radius: 7px;
+
+    background-color: #2B303B;
+    color: white;
+
+    cursor: pointer;
+
+    font-family: inherit;
+}
+
+.toggle-password:hover {
+    background-color: #3b414c;
+}
+
+.password-note {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* ================= ERRORS ================= */
+
+.field-error {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #dc3545;
+
+    font-size: 14px;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 30px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.cancel-btn,
+.update-btn {
+    padding: 11px 20px;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    border: none;
+}
+
+.cancel-btn {
+    background-color: #e5e7eb;
+    color: #2B303B;
+}
+
+.cancel-btn:hover {
+    background-color: #d5d8dc;
+}
+
+.update-btn {
+    background-color: #2B303B;
+    color: white;
+}
+
+.update-btn:hover {
+    background-color: #3b414c;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 700px) {
+
+    .student-header {
+        padding: 15px 20px;
+    }
+
+    .edit-container {
+        padding: 25px 20px;
+    }
+
+    .edit-card {
+        padding: 22px;
+    }
+
+    .student-title h1 {
+        font-size: 23px;
+    }
+
+    .back-btn {
+        padding: 8px 12px;
+    }
+
+}

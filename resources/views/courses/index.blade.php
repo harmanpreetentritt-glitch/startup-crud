@@ -204,11 +204,6 @@
 
     </div>
 
-
-    <!-- JavaScript -->
-
-    @vite(['resources/js/index.js'])
-
 </body>
 
 </html>
