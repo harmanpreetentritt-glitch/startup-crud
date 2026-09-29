@@ -30,6 +30,6 @@ class CollegeController extends Controller
 
     public function index()
     {
-        return view('CollegeDekho.college');
+        return view('colleges.index');
     }
 }

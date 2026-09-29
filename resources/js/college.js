@@ -569,6 +569,8 @@
 // showFilters();
 // showColleges();
 
+
+//By API 
 let colleges = [];
 
 async function loadColleges() {
@@ -588,7 +590,6 @@ async function loadColleges() {
 
     } catch (error) {
         console.error('Error loading colleges:', error);
-
         document.querySelector('#list').innerHTML =
             '<div class="empty">Unable to load colleges.</div>';
     }
