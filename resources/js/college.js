@@ -613,11 +613,10 @@ function makeCard(college) {
             <div class="card-body">
 
                 <div class="cimg">
-                    ${
-                        college.logo
-                            ? `<img src="${college.logo}" alt="${college.name}">`
-                            : college.name
-                    }
+                    ${college.logo
+            ? `<img src="${college.logo}" alt="${college.name}">`
+            : college.name
+        }
                 </div>
 
                 <div class="cinfo">
