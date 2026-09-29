@@ -9,7 +9,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CollegeController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -118,3 +117,4 @@ Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.
 Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
 Route::get('/colleges', [CollegeController::class, 'index']);
+Route::post('/colleges', [CollegeController::class, 'store']);
