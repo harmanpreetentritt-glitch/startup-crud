@@ -16,9 +16,9 @@ use App\Http\Controllers\CollegeController;
 */
 
 // Home
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 // ==================== AUTH ====================
@@ -60,12 +60,12 @@ Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
 
 // ==================== STUDENTS ====================
 
-Route::get('/students', [StudentController::class, 'index']);
-Route::get('/students/create', [StudentController::class, 'create']);
-Route::post('/students', [StudentController::class, 'store']);
-Route::get('/students/{id}/edit', [StudentController::class, 'edit']);
-Route::put('/students/{id}', [StudentController::class, 'update']);
-Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+// Route::get('/students', [StudentController::class, 'index']);
+// Route::get('/students/create', [StudentController::class, 'create']);
+// Route::post('/students', [StudentController::class, 'store']);
+// Route::get('/students/{id}/edit', [StudentController::class, 'edit']);
+// Route::put('/students/{id}', [StudentController::class, 'update']);
+// Route::delete('/students/{id}', [StudentController::class, 'destroy']);
 
 
 // ==================== PRODUCTS ====================
@@ -117,4 +117,3 @@ Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.
 Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
 Route::get('/colleges', [CollegeController::class, 'index']);
-Route::post('/colleges', [CollegeController::class, 'store']);
