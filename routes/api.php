@@ -1,24 +1,28 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollegeController;
+
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
+// ==================== COLLEGES API ====================
+
+// Get all colleges
 Route::get('/colleges', [CollegeController::class, 'apiIndex']);
 
+// Create a college
 Route::post('/colleges', [CollegeController::class, 'store']);
+
+// Get one college by ID
+Route::get('/colleges/{id}', [CollegeController::class, 'show']);
+
+// Update one college
+Route::put('/colleges/{id}', [CollegeController::class, 'update']);
+// delete college
+Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
