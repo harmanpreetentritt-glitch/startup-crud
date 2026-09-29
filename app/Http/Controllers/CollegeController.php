@@ -30,16 +30,6 @@ class CollegeController extends Controller
 
     public function index()
     {
-        return view('colleges.index');
-    }
-
-    public function apiIndex()
-    {
-        $colleges = College::all();
-
-        return response()->json([
-            'message' => 'Colleges fetched successfully',
-            'data' => $colleges
-        ]);
+        return view('CollegeDekho.college');
     }
 }
