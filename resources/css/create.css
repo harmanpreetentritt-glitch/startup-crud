@@ -12,9 +12,7 @@ body {
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/*HEADER */
 
 .add-course-header {
     min-height: 75px;
@@ -40,9 +38,7 @@ body {
 }
 
 
-/* =========================
-   BACK BUTTON
-========================= */
+/*BACK BUTTON*/
 
 .back-btn {
     display: inline-block;
@@ -67,9 +63,7 @@ body {
 }
 
 
-/* =========================
-   FORM CARD
-========================= */
+/*FORM CARD*/
 
 .add-course-container {
     width: 90%;
@@ -87,18 +81,14 @@ body {
 }
 
 
-/* =========================
-   FORM
-========================= */
+/*FORM */
 
 .add-course-form {
     width: 100%;
 }
 
 
-/* =========================
-   FORM GROUP
-========================= */
+/*FORM GROUP*/
 
 .form-group {
     margin-bottom: 22px;
@@ -116,9 +106,7 @@ body {
 }
 
 
-/* =========================
-   INPUTS + SELECT
-========================= */
+/* INPUTS + SELECT */
 
 .form-group input,
 .form-group select {
@@ -303,9 +291,7 @@ body {
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE*/
 
 @media (max-width: 700px) {
 
