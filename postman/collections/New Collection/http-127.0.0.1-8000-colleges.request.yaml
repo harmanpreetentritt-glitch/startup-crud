@@ -1,25 +1,20 @@
 $kind: http-request
 name: http://127.0.0.1:8000/colleges
 description: ""
-url: http://127.0.0.1:8000/colleges
+url: http://127.0.0.1:8000/api/colleges
 method: POST
+headers:
+  Accept: application/json
+  Content-Type: application/json
 body:
   type: json
   content: "{\r
 
-    \    \"name\": \"IIT Bombay\",\r
+    \    \"name\": \"Test College\",\r
 
     \    \"city\": \"Mumbai\",\r
 
     \    \"state\": \"Maharashtra\",\r
-
-    \    \"type\": \"Public\",\r
-
-    \    \"established_year\": 1958,\r
-
-    \    \"description\": \"Indian Institute of Technology Bombay\",\r
-
-    \    \"logo\": \"iit-bombay.jpg\",\r
 
     \    \"website\": \"https://www.iitb.ac.in\"\r
 
