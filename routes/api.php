@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/colleges', [CollegeController::class, 'apiIndex']);
+
+Route::post('/colleges', [CollegeController::class, 'store']);
