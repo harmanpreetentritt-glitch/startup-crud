@@ -105,32 +105,56 @@ async function loadCollegeCourses(id) {
 
         if (!result.data.length) {
             container.innerHTML = '<p class="courses-empty">No courses have been added for this college yet.</p>';
-            document.querySelector('#admissionEligibility').innerHTML = '<p class="courses-empty">No course eligibility information has been added for this college yet.</p>';
+            document.querySelector('#admissionEligibility').innerHTML =
+                '<p class="courses-empty">No course eligibility information has been added for this college yet.</p>';
             return;
         }
 
+        // Course count badge next to heading
+        const heading = document.querySelector('.courses-heading h2');
+        if (heading && !heading.querySelector('.course-count-badge')) {
+            const badge = document.createElement('span');
+            badge.className = 'course-count-badge';
+            badge.textContent = result.data.length + ' course' + (result.data.length !== 1 ? 's' : '');
+            heading.appendChild(badge);
+        }
+
+        // Table rows
+        const rows = result.data.map((course, index) => {
+            const duration = [course.length, course.duration].filter(Boolean).join(' ') || '—';
+            const eligibility = course.eligibility || '—';
+            const exam = course.exam_required || course.exam || '—';
+            return `<tr>
+                <td class="course-no-cell"><span>${index + 1}</span></td>
+                <td class="course-name-cell">${escapeHtml(course.name || 'Untitled course')}</td>
+                <td>${escapeHtml(duration)}</td>
+                <td>${escapeHtml(eligibility)}</td>
+                <td>${escapeHtml(exam)}</td>
+            </tr>`;
+        }).join('');
+
+        container.innerHTML = `<div class="table-wrap"><table class="info-table course-table">
+            <thead><tr>
+                <th scope="col">S.No.</th>
+                <th scope="col">Course name</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Eligibility</th>
+                <th scope="col">Entrance exam</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+        </table></div>`;
+
+        // Admission eligibility table (for the Admission section)
         const eligibilityRows = result.data.map((course) => `<tr>
             <td>${escapeHtml(course.name || 'Untitled course')}</td>
             <td>${escapeHtml(course.eligibility || 'Not provided')}</td>
             <td>${escapeHtml(course.exam_required || course.exam || 'Not provided')}</td>
         </tr>`).join('');
         document.querySelector('#admissionEligibility').innerHTML = `<table class="info-table">
-            <thead><tr><th scope="col">Courses</th><th scope="col">Eligibility criteria</th><th scope="col">Exam required</th></tr></thead>
+            <thead><tr><th scope="col">Course</th><th scope="col">Eligibility criteria</th><th scope="col">Entrance exam</th></tr></thead>
             <tbody>${eligibilityRows}</tbody>
         </table>`;
 
-        const rows = result.data.map((course) => {
-            const duration = [course.length, course.duration].filter(Boolean).join(' ');
-            return `<tr>
-                <td>${escapeHtml(course.name || 'Untitled course')}</td>
-                <td>${escapeHtml(duration || 'Not provided')}</td>
-            </tr>`;
-        }).join('');
-
-        container.innerHTML = `<div class="table-wrap"><table class="info-table course-table">
-            <thead><tr><th scope="col">Course</th><th scope="col">Duration</th></tr></thead>
-            <tbody>${rows}</tbody>
-        </table></div>`;
     } catch (error) {
         container.innerHTML = `<p class="courses-empty error">${escapeHtml(error.message || 'Unable to load courses.')}</p>`;
     }

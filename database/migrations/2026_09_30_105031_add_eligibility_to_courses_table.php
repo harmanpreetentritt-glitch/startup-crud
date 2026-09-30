@@ -6,15 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::table('courses', function (Blueprint $table) {
-            if (!Schema::hasColumn('courses', 'eligibility')) {
-                $table->text('eligibility')->nullable();
-            }
-            if (!Schema::hasColumn('courses', 'exam_required')) {
-                $table->string('exam_required')->nullable();
-            }
+            $table->text('eligibility')->nullable()->after('duration');
+            $table->string('exam_required', 255)->nullable()->after('eligibility');
         });
     }
 
