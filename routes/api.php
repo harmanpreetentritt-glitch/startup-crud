@@ -21,6 +21,7 @@ Route::post('/colleges', [CollegeController::class, 'store']);
 
 // Get one college by ID
 Route::get('/colleges/{id}', [CollegeController::class, 'show']);
+Route::get('/colleges/{id}/courses', [CollegeController::class, 'apiCourses']);
 
 // Update one college
 Route::put('/colleges/{id}', [CollegeController::class, 'update']);

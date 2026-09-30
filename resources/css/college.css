@@ -204,6 +204,7 @@ a {
     grid-template-columns: 380px 1fr;
     gap: 24px;
     align-items: start;
+    padding-top: 28px;
     padding-bottom: 60px;
 }
 .filters {
@@ -295,6 +296,23 @@ a {
     font-size: 14px;
     padding-left: 8px;
 }
+.filters { gap: 12px; }
+.fbox { padding: 14px; border: 1px solid #e7eaf0; border-radius: 3px; box-shadow: 0 3px 14px #1018280d; }
+.filter-heading {
+    width: 100%; padding: 2px 2px 12px; display: flex; align-items: center; justify-content: space-between;
+    border: 0; background: transparent; color: #30343b; font: inherit; font-size: 16px; font-weight: 700; text-align: left; cursor: pointer;
+}
+.filter-chevron { width: 9px; height: 9px; margin: -5px 2px 0 0; border-right: 2px solid #50565f; border-bottom: 2px solid #50565f; transform: rotate(45deg); transition: transform .18s ease; }
+.fbox.closed .filter-chevron { margin-top: 2px; transform: rotate(-45deg); }
+.filter-search { width: 100%; min-height: 44px; margin-bottom: 8px; padding: 10px 13px; border: 1px solid #d1d7e0; border-radius: 2px; color: var(--ink); background: #fff; font: inherit; }
+.filter-search:focus { border-color: #8497eb; outline: 2px solid #8497eb30; }
+.opt { align-items: center; gap: 12px; min-height: 42px; padding: 8px 2px; color: #454a52; font-size: 14px; }
+.opt i { border-radius: 3px; }
+.opt.r i { border-radius: 50%; }
+.opt .opt-label { min-width: 0; margin-left: 0; padding-left: 0; color: #454a52; font-size: 14px; line-height: 1.45; }
+.opt .opt-count { flex: none; margin-left: auto; padding-left: 5px; color: #69717b; font-size: 12px; }
+.filter-empty { margin: 10px 2px 4px; color: #7a8491; font-size: 12px; line-height: 1.5; }
+.fbox .opts { max-height: 270px; }
 .toggle {
     display: flex;
     justify-content: flex-end;
@@ -304,22 +322,22 @@ a {
 .toggle label {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 17px;
+    gap: 8px;
+    font-size: 15px;
     cursor: pointer;
 }
 .toggle input {
     display: none;
 }
 .toggle i {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: 1.5px solid #b9bde8;
     background: #fff;
 }
 .toggle input:checked + i {
-    border: 8px solid var(--pri);
+    border: 6px solid var(--pri);
 }
 .chips {
     display: flex;
@@ -344,6 +362,17 @@ a {
 }
 
 /* college card */
+.add-college-link {
+    display: inline-flex;
+    margin: 0 0 18px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: var(--pri);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.add-college-link:hover { filter: brightness(.92); }
 .card {
     background: var(--card);
     border-radius: 10px;
@@ -374,9 +403,25 @@ a {
     font-size: 26px;
     color: #777a90;
     cursor: pointer;
+    outline: none;
+    box-shadow: none;
+}
+.icons button:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+.icons button:focus-visible {
+    outline: 2px solid var(--pri);
+    outline-offset: 4px;
 }
 .icons .on {
     color: #e0245e;
+}
+.share-notice {
+    align-self: center;
+    color: var(--pri);
+    font-size: 12px;
+    font-weight: 600;
 }
 .card-body {
     display: flex;
@@ -384,16 +429,29 @@ a {
     align-items: flex-start;
 }
 .cimg {
-    width: 325px;
-    height: 200px;
+    width: 360px;
+    height: 220px;
     flex: none;
-    border-radius: 4px;
-    background: linear-gradient(135deg, #7a5b47, #1c1c26);
-    color: #fff;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #34475d;
     display: flex;
-    align-items: flex-end;
-    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     font-weight: 600;
+}
+.cimg img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
 }
 .cinfo {
     flex: 1;
@@ -407,6 +465,8 @@ a {
     color: var(--mut);
     font-size: 15px;
 }
+.college-location { display: inline-flex; align-items: center; gap: 7px; }
+.location-icon { width: 19px; height: 19px; flex: none; fill: none; stroke: #aaaecd; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
 .rate {
     background: var(--ok);
     color: #fff;
@@ -570,6 +630,8 @@ a {
     font: inherit;
     cursor: pointer;
 }
+.card-foot > div { display: flex; flex-wrap: wrap; gap: 10px; }
+.card-foot .btn { display: inline-block; text-decoration: none; }
 .btn.fill {
     background: var(--pri);
     color: #fff;
@@ -615,6 +677,7 @@ a {
 @media (max-width: 900px) {
     .layout {
         grid-template-columns: 1fr;
+        padding-top: 18px;
     }
     .card-body {
         flex-direction: column;

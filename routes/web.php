@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 
-// ==================== AUTH ====================
+//  AUTH 
 
 // Signup page
 Route::get('/signup', function () {
@@ -45,14 +45,14 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 
-// ==================== DASHBOARD ====================
+//  DASHBOARD 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 
-// ==================== EMPLOYEES ====================
+//  EMPLOYEES 
 
 Route::get('/employees', [EmployeeController::class, 'index']);
 Route::get('/employees/create', [EmployeeController::class, 'create']);
@@ -62,12 +62,12 @@ Route::put('/employees/{id}', [EmployeeController::class, 'update']);
 Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
 
 
-// ==================== STUDENTS ====================
+//  STUDENTS 
 
 Route::get('/students', [StudentController::class, 'index']);
 
 
-// ==================== PRODUCTS ====================
+//  PRODUCTS 
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}/edit', [ProductController::class, 'edit']);
@@ -75,7 +75,7 @@ Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
 
-// ==================== CART ====================
+//  CART 
 
 Route::get('/cart/add/{id}', [CartController::class, 'add'])
     ->middleware('auth');
@@ -105,7 +105,7 @@ Route::get('/session/delete', [CartController::class, 'deleteSession'])
     ->middleware('auth');
 
 
-// ==================== COURSES ====================
+//  COURSES 
 
 Route::get('/courses', [CourseController::class, 'index']);
 Route::get('/courses/create', [CourseController::class, 'create']);
@@ -118,7 +118,7 @@ Route::delete('/courses/{id}', [CourseController::class, 'destroy'])
     ->name('courses.destroy');
 
 
-// ==================== SUBJECTS ====================
+//  SUBJECTS 
 
 Route::get('/subjects', [SubjectController::class, 'index']);
 Route::get('/subjects/create', [SubjectController::class, 'create']);
@@ -128,10 +128,17 @@ Route::put('/subjects/{id}', [SubjectController::class, 'update']);
 Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
 
 
-// ==================== COLLEGES ====================
+//  COLLEGES 
 
 Route::get('/colleges', [CollegeController::class, 'index']);
+Route::view('/colleges/create', 'colleges.addCollege');
+Route::get('/colleges/{collegeId}/courses/create', [CourseController::class, 'createForCollege']);
+Route::post('/colleges/{collegeId}/courses', [CourseController::class, 'storeForCollege']);
+Route::get('/colleges/{id}/edit', function ($id) {
+    return view('colleges.addCollege', ['collegeId' => $id]);
+});
 Route::post('/colleges', [CollegeController::class, 'store']);
 Route::get('/colleges/{id}', [CollegeController::class, 'show']);
 Route::put('/colleges/{id}', [CollegeController::class, 'update']);
 Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
+Route::get('/api/colleges', [CollegeController::class, 'apiIndex']);

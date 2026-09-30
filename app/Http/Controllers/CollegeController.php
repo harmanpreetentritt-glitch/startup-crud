@@ -34,6 +34,20 @@ class CollegeController extends Controller
         ]);
     }
 
+    public function apiCourses($id)
+    {
+        $college = College::find($id);
+
+        if (!$college) {
+            return response()->json(['message' => 'College not found'], 404);
+        }
+
+        return response()->json([
+            'message' => 'College courses fetched successfully',
+            'data' => $college->courses()->orderBy('name')->get(),
+        ]);
+    }
+
     /**
      * Store a newly created college in storage.
      */
@@ -71,9 +85,9 @@ class CollegeController extends Controller
     }
 
     /**
-     * Display the specified college.
+     * Display a college page or return its record as JSON.
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $college = College::find($id);
 
@@ -81,6 +95,10 @@ class CollegeController extends Controller
             return response()->json([
                 'message' => 'College not found'
             ], 404);
+        }
+
+        if (!$request->expectsJson() && !$request->ajax()) {
+            return view('colleges.show', ['collegeId' => $college->id]);
         }
 
         return response()->json([
