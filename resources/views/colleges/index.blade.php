@@ -90,9 +90,9 @@
         <div class="foot-brand">
           <a href="{{ url('/colleges') }}" class="logo">Campus<span>Path</span></a>
           <p>Find colleges, compare fees, check rankings and get admission guidance in one place.</p>
-          <div class="socials">
+          <!-- <div class="socials">
             <i class="s fb">f</i><i class="s ig">â—Ž</i><i class="s in">in</i><i class="s x">ð•</i><i class="s yt">â–¶</i>
-          </div>
+          </div> -->
         </div>
 
         <div>
