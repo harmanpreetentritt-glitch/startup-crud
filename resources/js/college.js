@@ -700,6 +700,7 @@ const filterDefinitions = [
 ];
 const chosenFilters = Object.fromEntries(filterDefinitions.map((filter) => [filter.key, new Set()]));
 const filterSearch = {};
+let quickSearchQuery = '';
 const normalizeFilterValue = (value) => String(value).toLocaleLowerCase().replace(/[^a-z0-9]/g, '');
 const stateAliases = {
     'andaman and nicobar islands': ['andaman & nicobar islands'],
@@ -760,10 +761,10 @@ function makeCard(college) {
     return `
         <article class="card" id="college-${college.id}">
             <div class="card-head">
-                <h3>${college.name}</h3>
+                <h3>${escapeHtml(college.name)}</h3>
 
                 <div class="icons">
-                    <button class="share-college" data-college-id="${college.id}" data-college-name="${college.name}" title="Share" aria-label="Share college">&#8599;</button>
+                    <button class="share-college" data-college-id="${college.id}" data-college-name="${escapeHtml(college.name)}" title="Share" aria-label="Share college">&#8599;</button>
                     <button class="save-college ${isSaved ? 'on' : ''}" data-college-id="${college.id}" title="${isSaved ? 'Remove saved college' : 'Save college'}" aria-label="${isSaved ? 'Remove saved college' : 'Save college'}" aria-pressed="${isSaved}">${isSaved ? '&#9829;' : '&#9825;'}</button>
                 </div>
             </div>
@@ -771,15 +772,15 @@ function makeCard(college) {
             <div class="card-body">
                 <div class="cimg">
                     ${college.logo
-                        ? `<img src="${college.logo}" alt="${college.name}">`
-                        : college.name
+                        ? `<img src="${escapeHtml(college.logo)}" alt="${escapeHtml(college.name)}">`
+                        : escapeHtml(college.name)
                     }
                 </div>
 
                 <div class="cinfo">
                     <div class="meta">
-                        <span class="college-location"><svg class="location-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10.2c0 5.1-7 11.1-7 11.1S5 15.3 5 10.2a7 7 0 1 1 14 0Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>${college.city}, ${college.state}</span>
-                        <span>⚑ ${college.type ?? ''}</span>
+                        <span class="college-location"><svg class="location-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10.2c0 5.1-7 11.1-7 11.1S5 15.3 5 10.2a7 7 0 1 1 14 0Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>${escapeHtml(college.city)}, ${escapeHtml(college.state)}</span>
+                        <span>⚑ ${escapeHtml(college.type ?? '')}</span>
                     </div>
 
                     <div class="stats">
@@ -801,6 +802,7 @@ function makeCard(college) {
                 <div>
                     <button class="btn" type="button" data-view-college="${college.id}">View College</button>
                     <a class="btn edit-college" href="/colleges/${college.id}/edit">Edit college</a>
+                    <button class="btn delete-college" type="button" data-delete-college="${college.id}" data-college-name="${escapeHtml(college.name)}">Delete</button>
                 </div>
             </div>
         </article>
@@ -909,6 +911,11 @@ function renderFilters() {
 }
 
 function collegeMatchesFilters(college) {
+    if (quickSearchQuery) {
+        const searchText = [college.name, college.city, college.state, college.type]
+            .filter(Boolean).join(' ').toLocaleLowerCase();
+        if (!searchText.includes(quickSearchQuery.toLocaleLowerCase())) return false;
+    }
     return filterDefinitions.every((definition) => {
         const selected = chosenFilters[definition.key];
         if (!selected.size) return true;
@@ -935,7 +942,10 @@ function showColleges() {
 
 function renderFilterChips() {
     const chips = document.querySelector('#chips');
-    chips.innerHTML = filterDefinitions.flatMap((definition) =>
+    const searchChip = quickSearchQuery
+        ? `<button class="chip" type="button" data-remove-search>Search: ${escapeHtml(quickSearchQuery)} &#10005;</button>`
+        : '';
+    chips.innerHTML = searchChip + filterDefinitions.flatMap((definition) =>
         [...chosenFilters[definition.key]].map((value) => {
             const option = filterOptions(definition).find((item) => item.value === value);
             const label = option?.label || value;
@@ -978,10 +988,23 @@ document.querySelector('#filters').addEventListener('click', (event) => {
 });
 
 document.querySelector('#chips').addEventListener('click', (event) => {
+    if (event.target.closest('[data-remove-search]')) {
+        quickSearchQuery = '';
+        const searchInput = document.querySelector('#quickSearchInput');
+        if (searchInput) searchInput.value = '';
+        showColleges();
+        return;
+    }
     const chip = event.target.closest('[data-remove-filter]');
     if (!chip) return;
     chosenFilters[chip.dataset.removeFilter].delete(chip.dataset.filterValue);
     renderFilters();
+    showColleges();
+});
+
+const quickSearchInput = document.querySelector('#quickSearchInput');
+quickSearchInput?.addEventListener('input', () => {
+    quickSearchQuery = quickSearchInput.value.trim();
     showColleges();
 });
 
@@ -993,6 +1016,12 @@ document.querySelectorAll('input[name="mode"]').forEach((radio) => {
 });
 
 document.querySelector('#list').addEventListener('click', (event) => {
+    const deleteButton = event.target.closest('[data-delete-college]');
+    if (deleteButton) {
+        deleteCollege(deleteButton.dataset.deleteCollege, deleteButton.dataset.collegeName);
+        return;
+    }
+
     const viewButton = event.target.closest('[data-view-college]');
     if (viewButton) {
         window.location.href = `/colleges/${viewButton.dataset.viewCollege}`;
@@ -1018,6 +1047,22 @@ document.querySelector('#list').addEventListener('click', (event) => {
     localStorage.setItem('savedCollegeIds', JSON.stringify([...savedCollegeIds]));
     showColleges();
 });
+
+async function deleteCollege(id, collegeName) {
+    if (!window.confirm(`Delete ${collegeName}? This cannot be undone.`)) return;
+
+    try {
+        const response = await fetch(`/api/colleges/${encodeURIComponent(id)}`, {
+            method: 'DELETE',
+            headers: { Accept: 'application/json' },
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'Could not delete this college.');
+        await loadColleges();
+    } catch (error) {
+        window.alert(error.message || 'Unable to delete this college.');
+    }
+}
 
 async function shareCollege(button) {
     const collegeName = button.dataset.collegeName;
@@ -1056,6 +1101,45 @@ function showShareMessage(button, message) {
 
     notice.textContent = message;
     window.setTimeout(() => notice.remove(), 2200);
+}
+
+const searchPanel = document.querySelector('#searchPanel');
+const searchInput = document.querySelector('#spInput');
+const searchResults = document.querySelector('#spResults');
+const closeSearchPanel = () => {
+    if (searchPanel) searchPanel.hidden = true;
+    document.body.style.overflow = '';
+};
+
+document.querySelector('#openSearch')?.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!searchPanel) return;
+    searchPanel.hidden = false;
+    document.body.style.overflow = 'hidden';
+    searchInput?.focus();
+});
+document.querySelector('#spClose')?.addEventListener('click', closeSearchPanel);
+searchPanel?.addEventListener('click', (event) => {
+    if (event.target === searchPanel) closeSearchPanel();
+});
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeSearchPanel();
+});
+searchInput?.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLocaleLowerCase();
+    const matches = colleges.filter((college) =>
+        [college.name, college.city, college.state].filter(Boolean).join(' ').toLocaleLowerCase().includes(query)
+    ).slice(0, 6);
+    searchResults.innerHTML = query
+        ? matches.map((college) => `<a class="sp-item" href="/colleges/${encodeURIComponent(college.id)}"><span>${escapeHtml(college.name)}</span><small>${escapeHtml(college.city)}, ${escapeHtml(college.state)}</small></a>`).join('')
+        : '';
+    if (query && !matches.length) searchResults.innerHTML = '<div class="sp-empty">No colleges found.</div>';
+});
+
+const topButton = document.querySelector('#toTop');
+if (topButton) {
+    window.addEventListener('scroll', () => { topButton.style.display = window.scrollY > 400 ? 'flex' : 'none'; });
+    topButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
 loadColleges();

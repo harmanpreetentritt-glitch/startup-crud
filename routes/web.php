@@ -130,15 +130,15 @@ Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
 
 //  COLLEGES 
 
-// Existing frontend page
 Route::get('/colleges', [CollegeController::class, 'index']);
 Route::view('/colleges/create', 'colleges.addCollege');
-Route::get('/colleges/{id}', function ($id) {
-    return view('colleges.show', ['collegeId' => $id]);
-});
 Route::get('/colleges/{collegeId}/courses/create', [CourseController::class, 'createForCollege']);
 Route::post('/colleges/{collegeId}/courses', [CourseController::class, 'storeForCollege']);
 Route::get('/colleges/{id}/edit', function ($id) {
     return view('colleges.addCollege', ['collegeId' => $id]);
 });
+Route::post('/colleges', [CollegeController::class, 'store']);
+Route::get('/colleges/{id}', [CollegeController::class, 'show']);
+Route::put('/colleges/{id}', [CollegeController::class, 'update']);
+Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
 Route::get('/api/colleges', [CollegeController::class, 'apiIndex']);
