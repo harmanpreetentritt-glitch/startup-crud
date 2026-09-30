@@ -1,4 +1,4 @@
-// // 1. COLLEGE DATA 
+﻿// // 1. COLLEGE DATA 
 // const colleges = [
 //     {
 //         name: 'Chandigarh University', stream: 'Engineering', direct: true, rating: 4.4, reviews: 369,
@@ -286,18 +286,18 @@
 //         rightButton = '<button class="btn fill">Apply Now</button>';
 //     } else {
 //         leftButton = '<button class="btn">Get Free Counselling</button>';
-//         rightButton = `<button class="btn fill ${isShort ? 'on' : ''}" data-shortlist>${isShort ? 'Shortlisted ✓' : 'Shortlist'}</button>`;
+//         rightButton = `<button class="btn fill ${isShort ? 'on' : ''}" data-shortlist>${isShort ? 'Shortlisted âœ“' : 'Shortlist'}</button>`;
 //     }
 
 //     // small pieces that only show when data exists
-//     const rating = college.rating ? `<span class="rate">${college.rating.toFixed(1)} ★</span>` : '';
+//     const rating = college.rating ? `<span class="rate">${college.rating.toFixed(1)} â˜…</span>` : '';
 //     const approvalMore = college.approvalMore ? `<span class="more">...+${college.approvalMore}</span>` : '';
 //     const examMore = college.examMore ? `<span class="more" style="font-weight:400">...+${college.examMore}</span>` : '';
 //     const packageBox = college.package
-//         ? `<div class="stat"><b>${college.package}</b><small>Highest Package</small><a class="lnk" href="#">↗ Placement Trends</a></div>` : '';
+//         ? `<div class="stat"><b>${college.package}</b><small>Highest Package</small><a class="lnk" href="#">â†— Placement Trends</a></div>` : '';
 //     const nirfBox = college.nirf
 //         ? `<div class="stat"><b>#${college.nirf} NIRF</b><small>Ranking</small></div>` : '';
-//     const arrows = manySlides ? '<button class="arrow l" data-prev>‹</button><button class="arrow r" data-next>›</button>' : '';
+//     const arrows = manySlides ? '<button class="arrow l" data-prev>â€¹</button><button class="arrow r" data-next>â€º</button>' : '';
 //     let dots = '';
 //     if (manySlides) {
 //         dots = '<div class="dots">';
@@ -312,8 +312,8 @@
 //     <div class="card-head">
 //       <h3>${college.name}</h3>
 //       <div class="icons">
-//         <button title="Share">➦</button>
-//         <button class="${isFav ? 'on' : ''}" data-heart title="Save">${isFav ? '♥' : '♡'}</button>
+//         <button title="Share">âž¦</button>
+//         <button class="${isFav ? 'on' : ''}" data-heart title="Save">${isFav ? 'â™¥' : 'â™¡'}</button>
 //       </div>
 //     </div>
 
@@ -323,13 +323,13 @@
 //         <div class="meta">
 //           ${rating}
 //           <span class="rv">(${college.reviews} Reviews)</span>
-//           <span>◎ ${college.city}, ${college.state}</span>
-//           <span>⚑ ${college.type}</span>
-//           <span>☆ ${college.approval} ${approvalMore}</span>
+//           <span>â—Ž ${college.city}, ${college.state}</span>
+//           <span>âš‘ ${college.type}</span>
+//           <span>â˜† ${college.approval} ${approvalMore}</span>
 //         </div>
 
 //         <div class="stats">
-//           <div class="stat"><b>₹ ${college.fee}</b><a class="lnk" href="#">🗎 Get Fee Details</a></div>
+//           <div class="stat"><b>â‚¹ ${college.fee}</b><a class="lnk" href="#">ðŸ—Ž Get Fee Details</a></div>
 //           ${packageBox}
 //           ${nirfBox}
 //           <div class="stat"><b>${college.exams[0]} ${examMore}</b><small>Exams</small></div>
@@ -338,7 +338,7 @@
 //         <div class="special">
 //           <h4>${college.name} specialties</h4>
 //           <div class="sbox">
-//             <div class="sicon">◈</div>
+//             <div class="sicon">â—ˆ</div>
 //             ${arrows}
 //             <div class="stext"><b>${special.title}</b> : ${special.text}</div>
 //           </div>
@@ -371,10 +371,10 @@
 
 //     // chips = the small tags above the list that remove a filter when clicked
 //     let chips = '';
-//     if (nameSearch) chips += `<button class="chip" data-chip="name|">Search: ${nameSearch} ✕</button>`;
+//     if (nameSearch) chips += `<button class="chip" data-chip="name|">Search: ${nameSearch} âœ•</button>`;
 //     filterBoxes.forEach(function (box) {
 //         chosen[box.key].forEach(function (value) {
-//             chips += `<button class="chip" data-chip="${box.key}|${value}">${value} ✕</button>`;
+//             chips += `<button class="chip" data-chip="${box.key}|${value}">${value} âœ•</button>`;
 //         });
 //     });
 //     $('#chips').innerHTML = chips;
@@ -569,9 +569,162 @@
 // showFilters();
 // showColleges();
 
+// By API
+// let colleges = [];
 
-//By API 
+// async function loadColleges() {
+//     try {
+//         const response = await fetch('/api/colleges');
+
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch colleges');
+//         }
+
+//         const result = await response.json();
+
+//         colleges = Array.isArray(result.data) ? result.data : [];
+
+//         if (!Array.isArray(result.data)) {
+//             throw new Error('Unexpected API response: expected a data array');
+//         }
+
+//         console.log('Colleges from API:', colleges);
+
+//         showColleges();
+
+//     } catch (error) {
+//         console.error('Error loading colleges:', error);
+
+//         document.querySelector('#list').innerHTML =
+//             '<div class="empty">Unable to load colleges.</div>';
+//     }
+// }
+
+// loadColleges();
+
+// function makeCard(college) {
+//     return `
+//         <article class="card">
+
+//             <div class="card-head">
+//                 <h3>${college.name}</h3>
+
+//                 <div class="icons">
+//                     <button title="Share">âž¦</button>
+//                     <button title="Save">â™¡</button>
+//                 </div>
+//             </div>
+
+//             <div class="card-body">
+
+//                 <div class="cimg">
+//                     ${college.logo
+//                         ? `<img src="${college.logo}" alt="${college.name}">`
+//                         : college.name
+//                     }
+//                 </div>
+
+//                 <div class="cinfo">
+
+//                     <div class="meta">
+//                         <span>ðŸ“ ${college.city}, ${college.state}</span>
+//                         <span>âš‘ ${college.type}</span>
+//                     </div>
+
+//                     <div class="stats">
+
+//                         <div class="stat">
+//                             <b>${college.established_year ?? "—"}</b>
+//                             <small>Established</small>
+//                         </div>
+
+//                     </div>
+
+//                 </div>
+//             </div>
+
+//             <div class="card-foot">
+//                 <nav>
+//                     <a href="#">Courses</a>
+//                     <a href="#">Admission</a>
+//                     <a href="#">Details</a>
+//                 </nav>
+
+//                 <div>
+//                     <button class="btn">View College</button>
+//                 </div>
+//             </div>
+
+//         </article>
+//     `;
+// }
+
+// function showColleges() {
+
+//     let html = '';
+
+//     colleges.forEach(function (college) {
+//         html += makeCard(college);
+//     });
+
+//     document.querySelector('#list').innerHTML =
+//         html || '<div class="empty">No colleges found.</div>';
+
+//     document.querySelector('#count').textContent =
+//         `Showing ${colleges.length} Colleges in India`;
+// }
+
+
+
+// By API
 let colleges = [];
+const filterDefinitions = [
+    { key: 'stream', label: 'Stream', fields: ['stream', 'streams'], single: true, options: ['Commerce & Banking', 'Design', 'Engineering', 'Hotel Management', 'Information Technology', 'Management', 'Medical', 'Science', 'Law', 'Arts & Humanities', 'Agriculture', 'Education'] },
+    { key: 'degree', label: 'Degree', fields: ['degree', 'degrees'], options: ['B.A. (Bachelor of Arts)', 'B.Com. (Bachelor of Commerce)', 'B.Des. (Bachelor of Design)', 'B.Sc. (Bachelor of Science)', 'B.Tech. (Bachelor of Technology)', 'B.B.A. (Bachelor of Business Administration)', 'B.C.A. (Bachelor of Computer Applications)', 'M.A. (Master of Arts)', 'M.B.A. (Master of Business Administration)', 'M.C.A. (Master of Computer Applications)', 'M.Sc. (Master of Science)', 'M.Tech. (Master of Technology)', 'M.B.B.S. (Bachelor of Medicine and Bachelor of Surgery)', 'LL.B. (Bachelor of Laws)'] },
+    { key: 'state', label: 'State / Union Territory', fields: ['state'], options: [
+        'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana',
+        'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
+        'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu',
+        'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands',
+        'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Jammu and Kashmir', 'Ladakh',
+        'Lakshadweep', 'Puducherry',
+    ] },
+    { key: 'city', label: 'City', fields: ['city'] },
+    { key: 'study_mode', label: 'Study Mode', fields: ['study_mode', 'study_modes', 'mode'], options: ['Regular', 'Full Time', 'Part Time', 'Online', 'Distance', 'Hybrid'] },
+    { key: 'specialization', label: 'Specialization', fields: ['specialization', 'specializations'], options: ['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Electrical Engineering', 'Electronics', 'Data Science', 'Finance', 'Marketing', 'Human Resources', 'Business Analytics', 'Medicine', 'Design'] },
+    { key: 'type', label: 'Institute Type', fields: ['type', 'institute_type'], options: ['Public', 'Government', 'Private', 'Deemed', 'Autonomous'] },
+    { key: 'exam', label: 'Exam', fields: ['exam', 'exams'], options: ['JEE Main', 'JEE Advanced', 'NEET UG', 'NEET PG', 'CUET', 'CAT', 'MAT', 'GATE', 'CLAT', 'NIFT', 'NID DAT'] },
+    { key: 'hostel', label: 'Hostel', fields: ['hostel', 'hostels', 'hostel_type', 'hostel_facility'], options: ['Boys Hostel', 'Girls Hostel'] },
+    { key: 'hostel_fee', label: 'Hostel Fee Range', fields: ['hostel_fee', 'hostel_fee_range', 'hostel_fees'], range: true },
+    { key: 'facilities', label: 'Facilities', fields: ['facility', 'facilities'], options: ['Boys Hostel', 'Girls Hostel', 'Library', 'Laboratories', 'Sports Facilities', 'Cafeteria', 'Wi-Fi', 'Transport', 'Medical Facilities', 'Auditorium'] },
+];
+const chosenFilters = Object.fromEntries(filterDefinitions.map((filter) => [filter.key, new Set()]));
+const filterSearch = {};
+const normalizeFilterValue = (value) => String(value).toLocaleLowerCase().replace(/[^a-z0-9]/g, '');
+const stateAliases = {
+    'andaman and nicobar islands': ['andaman & nicobar islands'],
+    'dadra and nagar haveli and daman and diu': ['dadra and nagar haveli', 'daman and diu'],
+    delhi: ['delhi ncr', 'new delhi', 'nct of delhi', 'national capital territory of delhi'],
+    'jammu and kashmir': ['jammu & kashmir', 'j&k'],
+    odisha: ['orissa'],
+    puducherry: ['pondicherry'],
+    uttarakhand: ['uttaranchal'],
+};
+
+function normalizedStateValues(value) {
+    const canonical = normalizeFilterValue(value);
+    const aliases = Object.entries(stateAliases).find(([name]) => normalizeFilterValue(name) === canonical)?.[1] || [];
+    return new Set([canonical, ...aliases.map(normalizeFilterValue)]);
+}
+
+function stateMatches(actual, selected) {
+    const actualValues = normalizedStateValues(actual);
+    const selectedValues = normalizedStateValues(selected);
+    return [...actualValues].some((value) => selectedValues.has(value));
+}
+const savedCollegeIds = new Set(
+    JSON.parse(localStorage.getItem('savedCollegeIds') || '[]').map(String)
+);
 
 async function loadColleges() {
     try {
@@ -581,90 +734,328 @@ async function loadColleges() {
             throw new Error('Failed to fetch colleges');
         }
 
-        colleges = await response.json();
+        const result = await response.json();
+
+        if (!Array.isArray(result.data)) {
+            throw new Error('Unexpected API response: expected a data array');
+        }
+
+        colleges = result.data;
 
         console.log('Colleges from API:', colleges);
 
-        showFilters();
+        renderFilters();
         showColleges();
-
     } catch (error) {
         console.error('Error loading colleges:', error);
+
         document.querySelector('#list').innerHTML =
             '<div class="empty">Unable to load colleges.</div>';
     }
 }
 
-loadColleges();
-
 function makeCard(college) {
-    return `
-        <article class="card">
+    const isSaved = savedCollegeIds.has(String(college.id));
 
+    return `
+        <article class="card" id="college-${college.id}">
             <div class="card-head">
                 <h3>${college.name}</h3>
 
                 <div class="icons">
-                    <button title="Share">➦</button>
-                    <button title="Save">♡</button>
+                    <button class="share-college" data-college-id="${college.id}" data-college-name="${college.name}" title="Share" aria-label="Share college">&#8599;</button>
+                    <button class="save-college ${isSaved ? 'on' : ''}" data-college-id="${college.id}" title="${isSaved ? 'Remove saved college' : 'Save college'}" aria-label="${isSaved ? 'Remove saved college' : 'Save college'}" aria-pressed="${isSaved}">${isSaved ? '&#9829;' : '&#9825;'}</button>
                 </div>
             </div>
 
             <div class="card-body">
-
                 <div class="cimg">
                     ${college.logo
-            ? `<img src="${college.logo}" alt="${college.name}">`
-            : college.name
-        }
+                        ? `<img src="${college.logo}" alt="${college.name}">`
+                        : college.name
+                    }
                 </div>
 
                 <div class="cinfo">
-
                     <div class="meta">
-                        <span>📍 ${college.city}, ${college.state}</span>
-                        <span>⚑ ${college.type}</span>
+                        <span class="college-location"><svg class="location-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10.2c0 5.1-7 11.1-7 11.1S5 15.3 5 10.2a7 7 0 1 1 14 0Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>${college.city}, ${college.state}</span>
+                        <span>⚑ ${college.type ?? ''}</span>
                     </div>
 
                     <div class="stats">
-
                         <div class="stat">
-                            <b>${college.established_at}</b>
+                            <b>${college.established_year ?? '—'}</b>
                             <small>Established</small>
                         </div>
-
                     </div>
-
                 </div>
             </div>
 
             <div class="card-foot">
                 <nav>
-                    <a href="#">Courses</a>
-                    <a href="#">Admission</a>
-                    <a href="#">Details</a>
+                    <a href="/colleges/${college.id}">Courses</a>
+                    <a href="/colleges/${college.id}">Admission</a>
+                    <a href="/colleges/${college.id}">Details</a>
                 </nav>
 
                 <div>
-                    <button class="btn">View College</button>
+                    <button class="btn" type="button" data-view-college="${college.id}">View College</button>
+                    <a class="btn edit-college" href="/colleges/${college.id}/edit">Edit college</a>
                 </div>
             </div>
-
         </article>
     `;
 }
 
-function showColleges() {
-
-    let html = '';
-
-    colleges.forEach(function (college) {
-        html += makeCard(college);
-    });
-
-    document.querySelector('#list').innerHTML =
-        html || '<div class="empty">No colleges found.</div>';
-
-    document.querySelector('#count').textContent =
-        `Showing ${colleges.length} Colleges in India`;
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (character) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[character]));
 }
+
+function fieldValues(college, fields) {
+    return fields.flatMap((field) => {
+        const value = college[field];
+        if (value === null || value === undefined || value === '') return [];
+        return (Array.isArray(value) ? value : [value]).map(String);
+    });
+}
+
+const hostelFeeRanges = [
+    { key: '0-25000', label: 'Below ₹25,000', min: 0, max: 25000 },
+    { key: '25000-50000', label: '₹25,000 – ₹50,000', min: 25000, max: 50000 },
+    { key: '50000-100000', label: '₹50,000 – ₹1,00,000', min: 50000, max: 100000 },
+    { key: '100000+', label: 'Above ₹1,00,000', min: 100000, max: Infinity },
+];
+
+function hostelFeeRange(college) {
+    const raw = fieldValues(college, ['hostel_fee', 'hostel_fee_range', 'hostel_fees'])[0];
+    if (!raw) return null;
+    const numberText = raw.match(/[\d,]+(?:\.\d+)?/)?.[0];
+    const amount = numberText ? Number(numberText.replace(/,/g, '')) : NaN;
+    if (!Number.isFinite(amount)) return null;
+    return hostelFeeRanges.find((range) => amount >= range.min && amount < range.max)?.key ?? null;
+}
+
+function filterOptions(definition) {
+    if (definition.range) {
+        return hostelFeeRanges.map((range) => ({
+            value: range.key,
+            label: range.label,
+            count: colleges.filter((college) => hostelFeeRange(college) === range.key).length,
+        }));
+    }
+
+    const counts = new Map();
+    colleges.forEach((college) => {
+        new Set(fieldValues(college, definition.fields)).forEach((value) => {
+            counts.set(value, (counts.get(value) || 0) + 1);
+        });
+    });
+    const options = new Map();
+    (definition.options || []).forEach((label) => {
+        const normalizedOption = normalizeFilterValue(label);
+        const optionAliases = definition.key === 'state'
+            ? normalizedStateValues(label)
+            : new Set([normalizedOption]);
+        const matchingCount = [...counts.entries()].reduce((total, [value, count]) => {
+            const normalizedValue = normalizeFilterValue(value);
+            return total + (optionAliases.has(normalizedValue) ? count : 0);
+        }, 0);
+        options.set(normalizedOption, { value: label, label, count: matchingCount });
+    });
+    counts.forEach((count, value) => {
+        const normalizedValue = normalizeFilterValue(value);
+        const hasOption = (definition.options || []).some((label) => definition.key === 'state'
+            ? stateMatches(value, label)
+            : normalizeFilterValue(label) === normalizedValue);
+        if (!hasOption && !options.has(normalizedValue)) options.set(normalizedValue, { value, label: value, count });
+    });
+    return [...options.values()].sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function renderFilters() {
+    const filters = document.querySelector('#filters');
+    filters.innerHTML = filterDefinitions.map((definition) => {
+        const search = filterSearch[definition.key] || '';
+        const options = filterOptions(definition).filter((option) =>
+            option.label.toLowerCase().includes(search.toLowerCase())
+        );
+        const optionMarkup = options.length
+            ? options.map((option) => {
+                const checked = chosenFilters[definition.key].has(option.value);
+                const inputType = definition.single ? 'radio' : 'checkbox';
+                const inputName = definition.single ? `name="filter-${definition.key}"` : '';
+                const controlClass = definition.single ? 'r' : 'c';
+                return `<label class="opt ${controlClass}">
+                    <input type="${inputType}" ${inputName} data-filter-key="${definition.key}" value="${escapeHtml(option.value)}" ${checked ? 'checked' : ''}>
+                    <i aria-hidden="true"></i>
+                    <span class="opt-label">${escapeHtml(option.label)}</span>
+                    <span class="opt-count">(${option.count})</span>
+                </label>`;
+            }).join('')
+            : `<p class="filter-empty">${search ? 'No matching options.' : 'No filter data available yet.'}</p>`;
+
+        return `<section class="fbox" id="filter-box-${definition.key}">
+            <button class="filter-heading" type="button" data-fold="${definition.key}" aria-expanded="true">
+                <span>${definition.label}</span><span class="filter-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="fbody">
+                <input class="filter-search" type="search" data-search-filter="${definition.key}" value="${escapeHtml(search)}" placeholder="Search" aria-label="Search ${definition.label}">
+                <div class="opts">${optionMarkup}</div>
+            </div>
+        </section>`;
+    }).join('');
+}
+
+function collegeMatchesFilters(college) {
+    return filterDefinitions.every((definition) => {
+        const selected = chosenFilters[definition.key];
+        if (!selected.size) return true;
+        if (definition.range) return selected.has(hostelFeeRange(college));
+        const values = fieldValues(college, definition.fields);
+        return [...selected].some((selectedValue) => definition.key === 'state'
+            ? values.some((value) => stateMatches(value, selectedValue))
+            : values.map(normalizeFilterValue).includes(normalizeFilterValue(selectedValue)));
+    });
+}
+
+function showColleges() {
+    const list = document.querySelector('#list');
+    const count = document.querySelector('#count');
+    const visibleColleges = colleges.filter(collegeMatchesFilters);
+
+    list.innerHTML = visibleColleges.length
+        ? visibleColleges.map(makeCard).join('')
+        : '<div class="empty">No colleges match these filters.</div>';
+
+    count.textContent = `Showing ${visibleColleges.length} Colleges in India`;
+    renderFilterChips();
+}
+
+function renderFilterChips() {
+    const chips = document.querySelector('#chips');
+    chips.innerHTML = filterDefinitions.flatMap((definition) =>
+        [...chosenFilters[definition.key]].map((value) => {
+            const option = filterOptions(definition).find((item) => item.value === value);
+            const label = option?.label || value;
+            return `<button class="chip" type="button" data-remove-filter="${definition.key}" data-filter-value="${escapeHtml(value)}">${escapeHtml(label)} &#10005;</button>`;
+        })
+    ).join('');
+}
+
+document.querySelector('#filters').addEventListener('change', (event) => {
+    const input = event.target.closest('[data-filter-key]');
+    if (!input) return;
+    const definition = filterDefinitions.find((filter) => filter.key === input.dataset.filterKey);
+    if (definition.single) {
+        chosenFilters[definition.key].clear();
+        if (input.checked) chosenFilters[definition.key].add(input.value);
+    } else if (input.checked) {
+        chosenFilters[definition.key].add(input.value);
+    } else {
+        chosenFilters[definition.key].delete(input.value);
+    }
+    showColleges();
+});
+
+document.querySelector('#filters').addEventListener('input', (event) => {
+    const search = event.target.closest('[data-search-filter]');
+    if (!search) return;
+    filterSearch[search.dataset.searchFilter] = search.value;
+    renderFilters();
+    const replacement = document.querySelector(`[data-search-filter="${search.dataset.searchFilter}"]`);
+    replacement?.focus();
+    replacement?.setSelectionRange(replacement.value.length, replacement.value.length);
+});
+
+document.querySelector('#filters').addEventListener('click', (event) => {
+    const heading = event.target.closest('[data-fold]');
+    if (!heading) return;
+    const box = document.querySelector(`#filter-box-${heading.dataset.fold}`);
+    box.classList.toggle('closed');
+    heading.setAttribute('aria-expanded', String(!box.classList.contains('closed')));
+});
+
+document.querySelector('#chips').addEventListener('click', (event) => {
+    const chip = event.target.closest('[data-remove-filter]');
+    if (!chip) return;
+    chosenFilters[chip.dataset.removeFilter].delete(chip.dataset.filterValue);
+    renderFilters();
+    showColleges();
+});
+
+document.querySelectorAll('input[name="mode"]').forEach((radio) => {
+    radio.addEventListener('change', () => {
+        // Both choices currently display the same list; direct-admission data is not provided by the API.
+        showColleges();
+    });
+});
+
+document.querySelector('#list').addEventListener('click', (event) => {
+    const viewButton = event.target.closest('[data-view-college]');
+    if (viewButton) {
+        window.location.href = `/colleges/${viewButton.dataset.viewCollege}`;
+        return;
+    }
+
+    const shareButton = event.target.closest('.share-college');
+    if (shareButton) {
+        shareCollege(shareButton);
+        return;
+    }
+
+    const saveButton = event.target.closest('.save-college');
+    if (!saveButton) return;
+
+    const collegeId = String(saveButton.dataset.collegeId);
+    if (savedCollegeIds.has(collegeId)) {
+        savedCollegeIds.delete(collegeId);
+    } else {
+        savedCollegeIds.add(collegeId);
+    }
+
+    localStorage.setItem('savedCollegeIds', JSON.stringify([...savedCollegeIds]));
+    showColleges();
+});
+
+async function shareCollege(button) {
+    const collegeName = button.dataset.collegeName;
+    const collegeUrl = new URL(`/colleges#college-${button.dataset.collegeId}`, window.location.origin).href;
+    const shareData = {
+        title: collegeName,
+        text: `Check out ${collegeName}`,
+        url: collegeUrl,
+    };
+
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+            return;
+        }
+
+        await navigator.clipboard.writeText(collegeUrl);
+        showShareMessage(button, 'Link copied');
+    } catch (error) {
+        if (error.name !== 'AbortError') {
+            showShareMessage(button, 'Could not share');
+        }
+    }
+}
+
+function showShareMessage(button, message) {
+    const card = button.closest('.card');
+    let notice = card.querySelector('.share-notice');
+
+    if (!notice) {
+        notice = document.createElement('span');
+        notice.className = 'share-notice';
+        notice.setAttribute('role', 'status');
+        card.querySelector('.card-head').append(notice);
+    }
+
+    notice.textContent = message;
+    window.setTimeout(() => notice.remove(), 2200);
+}
+
+loadColleges();

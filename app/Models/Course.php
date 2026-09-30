@@ -8,11 +8,17 @@ class Course extends Model
 {
     protected $fillable = [
     'name',
+    'college_id',
     'start_date',
     'end_date',
     'length',
     'duration'
 ];
+
+    public function college()
+    {
+        return $this->belongsTo(College::class);
+    }
     
 
 

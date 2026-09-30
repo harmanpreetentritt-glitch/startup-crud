@@ -21,4 +21,9 @@ class College extends Model
         'logo',
         'website',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

@@ -54,6 +54,16 @@
 
             </div>
 
+            <div class="form-group">
+                <label for="college_id">College</label>
+                <select id="college_id" name="college_id" required>
+                    <option value="">Select college</option>
+                    @foreach($colleges as $college)
+                        <option value="{{ $college->id }}" {{ (string) old('college_id', $selectedCollegeId ?? '') === (string) $college->id ? 'selected' : '' }}>{{ $college->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
 
             <!-- Mode of Course -->
 

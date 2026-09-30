@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,13 +15,6 @@
   <!-- HEADER -->
   <header class="site-header">
     <div class="container">
-      <div class="topbar">
-        <a href="mailto:hello@yoursite.com" class="mail">✈ hello@yoursite.com</a>
-        <div class="socials"><span>We're on your favourite socials!</span>
-          <i class="s fb">f</i><i class="s ig">◎</i><i class="s in">in</i><i class="s x">𝕏</i><i class="s yt">▶</i>
-        </div>
-      </div>
-
       <div class="mainnav">
         <a href="/" class="logo">Campus<span>Path</span></a>
         <ul class="menu">
@@ -61,22 +54,7 @@
 
   <!-- MAIN -->
   <main class="container">
-    <section class="intro">
-      <h1>Top Colleges in India 2026</h1>
-      <div class="author">
-        <div class="avatar">👤<span class="tick">✓</span></div>
-        <div>Written By <a href="#">Amit Singh - Content Writer</a><br><small>Updated on - Sep 28, 2026 01:17 AM
-            IST</small></div>
-      </div>
-      <p class="intro-text clamp" id="introText">India has developed a significant number of higher education
-        institutions over time to meet the demand of the expanding youth population by providing quality education, so
-        we have prepared a list of top colleges in India 2026. These colleges have established themselves not only
-        nationally but also internationally. India has long been a centre for education worldwide. Students from over
-        the world come here to study.</p>
-      <a href="#" class="readmore" id="readMore">Read More</a>
-    </section>
-
-    <div class="layout">
+<div class="layout">
       <aside class="filters" id="filters"></aside>
 
       <section class="results">
@@ -86,6 +64,7 @@
         </div>
         <div class="chips" id="chips"></div>
         <h2 class="count" id="count"></h2>
+        <a class="add-college-link" href="/colleges/create">+ Add a college</a>
         <div id="list"></div>
       </section>
     </div>
@@ -99,7 +78,7 @@
           <a href="/" class="logo">Campus<span>Path</span></a>
           <p>Find colleges, compare fees, check rankings and get admission guidance in one place.</p>
           <div class="socials">
-            <i class="s fb">f</i><i class="s ig">◎</i><i class="s in">in</i><i class="s x">𝕏</i><i class="s yt">▶</i>
+            <i class="s fb">f</i><i class="s ig">â—Ž</i><i class="s in">in</i><i class="s x">ð•</i><i class="s yt">â–¶</i>
           </div>
         </div>
 
@@ -138,7 +117,7 @@
       </div>
 
       <div class="foot-bottom">
-        <span>© 2026 CampusPath. All rights reserved.</span>
+        <span>Â© 2026 CampusPath. All rights reserved.</span>
         <span>Sample data for demonstration only.</span>
       </div>
     </div>
@@ -149,7 +128,7 @@
     <div class="sp-box">
       <div class="sp-top">
         <input type="search" id="spInput" placeholder="Search colleges, courses, cities..." autocomplete="off">
-        <button class="sp-close" id="spClose" aria-label="Close">✕</button>
+        <button class="sp-close" id="spClose" aria-label="Close">âœ•</button>
       </div>
       <div class="sp-tabs">
         <button class="on" data-tab="all">All</button>
@@ -161,8 +140,9 @@
   </div>
 
   <!--TOP BUTTON-->
-  <button id="toTop" class="totop" aria-label="Back to top"><span>⌃⌃</span>Top</button>
+  <button id="toTop" class="totop" aria-label="Back to top"><span>âŒƒâŒƒ</span>Top</button>
 
 </body>
 
 </html>
+

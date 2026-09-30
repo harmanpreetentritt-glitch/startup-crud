@@ -42,6 +42,20 @@ class CollegeController extends Controller
         ]);
     }
 
+    public function apiCourses($id)
+    {
+        $college = College::find($id);
+
+        if (!$college) {
+            return response()->json(['message' => 'College not found'], 404);
+        }
+
+        return response()->json([
+            'message' => 'College courses fetched successfully',
+            'data' => $college->courses()->orderBy('name')->get(),
+        ]);
+    }
+
     public function show($id)
     {
         $college = College::find($id);
