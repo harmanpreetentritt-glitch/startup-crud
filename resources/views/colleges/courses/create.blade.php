@@ -35,6 +35,18 @@
                     <small>Examples: “3 years”, “4 years”, or “6 semesters”.</small>
                 </div>
 
+                <div class="field">
+                    <label for="eligibility">Eligibility criteria</label>
+                    <textarea id="eligibility" name="eligibility" rows="3" maxlength="5000" placeholder="e.g. 10+2 with Physics, Chemistry, and Mathematics">{{ old('eligibility') }}</textarea>
+                    @error('eligibility') <small class="error-text">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="field">
+                    <label for="exam_required">Entrance exam</label>
+                    <input id="exam_required" name="exam_required" type="text" maxlength="255" value="{{ old('exam_required') }}" placeholder="e.g. JEE Advanced">
+                    @error('exam_required') <small class="error-text">{{ $message }}</small> @enderror
+                </div>
+
                 <div class="actions">
                     <a class="cancel-button" href="/colleges/{{ $college->id }}#college-courses">Cancel</a>
                     <button type="submit">Add course <span aria-hidden="true">&#8594;</span></button>

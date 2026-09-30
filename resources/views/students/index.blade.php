@@ -25,11 +25,6 @@
             <span>Student Management System</span>
         </div>
 
-        <a href="{{ url('/dashboard') }}" class="dashboard-link">
-            <i class="fa-solid fa-chart-line"></i>
-            Dashboard
-        </a>
-
     </header>
 
 

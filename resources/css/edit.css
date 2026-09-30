@@ -220,6 +220,19 @@ body {
     transition: all 0.2s ease;
 }
 
+.form-group textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px 13px;
+    border: 1px solid #d5d8dc;
+    border-radius: 6px;
+    outline: none;
+    color: #333;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    resize: vertical;
+}
+
 
 /* =========================================
    SELECT / DROPDOWN
@@ -257,7 +270,8 @@ body {
 ========================================= */
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
     border-color: #2B303B;
 
     box-shadow: 0 0 0 2px rgba(43, 48, 59, 0.08);

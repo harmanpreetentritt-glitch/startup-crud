@@ -21,6 +21,8 @@ class CourseController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'duration' => 'required|string|max:100',
+            'eligibility' => 'nullable|string|max:5000',
+            'exam_required' => 'nullable|string|max:255',
         ]);
 
         $college->courses()->create($validated);
@@ -52,6 +54,8 @@ class CourseController extends Controller
         'end_date' => 'required|date|after_or_equal:start_date',
         'length' => 'required|string|max:100',
         'duration' => 'required|string|max:100',
+        'eligibility' => 'nullable|string|max:5000',
+        'exam_required' => 'nullable|string|max:255',
     ]);
 
     Course::create([
@@ -61,6 +65,8 @@ class CourseController extends Controller
         'end_date' => $request->end_date,
         'length' => $request->length,
         'duration' => $request->duration,
+        'eligibility' => $request->input('eligibility'),
+        'exam_required' => $request->input('exam_required'),
     ]);
 
     return redirect('/courses')->with('success', 'Course created successfully.');
@@ -82,6 +88,8 @@ public function update(Request $request, $id)
         'end_date' => 'required|date|after_or_equal:start_date',
         'length' => 'required|string|max:100',
         'duration' => 'required|string|max:100',
+        'eligibility' => 'nullable|string|max:5000',
+        'exam_required' => 'nullable|string|max:255',
     ]);
 
     $course = Course::findOrFail($id);
@@ -92,6 +100,8 @@ public function update(Request $request, $id)
     $course->end_date = $request->end_date;
     $course->length = $request->length;
     $course->duration = $request->duration;
+    $course->eligibility = $request->input('eligibility');
+    $course->exam_required = $request->input('exam_required');
 
     $course->save();
 

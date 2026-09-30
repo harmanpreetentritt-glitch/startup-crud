@@ -12,7 +12,9 @@ class Course extends Model
     'start_date',
     'end_date',
     'length',
-    'duration'
+    'duration',
+    'eligibility',
+    'exam_required',
 ];
 
     public function college()

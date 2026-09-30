@@ -794,9 +794,9 @@ function makeCard(college) {
 
             <div class="card-foot">
                 <nav>
-                    <a href="/colleges/${college.id}">Courses</a>
-                    <a href="/colleges/${college.id}">Admission</a>
-                    <a href="/colleges/${college.id}">Details</a>
+                    <a href="/colleges/${college.id}#college-courses">Courses</a>
+                    <a href="/colleges/${college.id}#admission">Admission</a>
+                    <a href="/colleges/${college.id}#college-info">Details</a>
                 </nav>
 
                 <div>
@@ -821,6 +821,18 @@ function fieldValues(college, fields) {
         if (value === null || value === undefined || value === '') return [];
         return (Array.isArray(value) ? value : [value]).map(String);
     });
+}
+
+function collegeMatchesStream(college, stream) {
+    const normalizedStream = normalizeFilterValue(stream);
+    const collegeStreams = fieldValues(college, ['stream', 'streams']);
+    const courseNames = (college.courses || []).map((course) => course.name).filter(Boolean);
+    const streamCourseTerms = {
+        engineering: ['engineering', 'btech', 'mtech', 'bachelorofengineering', 'masterofengineering', 'bacheloroftechnology', 'masteroftechnology'],
+    }[normalizedStream] || [normalizedStream];
+
+    return collegeStreams.some((value) => normalizeFilterValue(value) === normalizedStream)
+        || courseNames.some((name) => streamCourseTerms.some((term) => normalizeFilterValue(name).includes(term)));
 }
 
 const hostelFeeRanges = [
@@ -860,10 +872,12 @@ function filterOptions(definition) {
         const optionAliases = definition.key === 'state'
             ? normalizedStateValues(label)
             : new Set([normalizedOption]);
-        const matchingCount = [...counts.entries()].reduce((total, [value, count]) => {
-            const normalizedValue = normalizeFilterValue(value);
-            return total + (optionAliases.has(normalizedValue) ? count : 0);
-        }, 0);
+        const matchingCount = definition.key === 'stream'
+            ? colleges.filter((college) => collegeMatchesStream(college, label)).length
+            : [...counts.entries()].reduce((total, [value, count]) => {
+                const normalizedValue = normalizeFilterValue(value);
+                return total + (optionAliases.has(normalizedValue) ? count : 0);
+            }, 0);
         options.set(normalizedOption, { value: label, label, count: matchingCount });
     });
     counts.forEach((count, value) => {
@@ -921,6 +935,9 @@ function collegeMatchesFilters(college) {
         if (!selected.size) return true;
         if (definition.range) return selected.has(hostelFeeRange(college));
         const values = fieldValues(college, definition.fields);
+        if (definition.key === 'stream') {
+            return [...selected].some((selectedValue) => collegeMatchesStream(college, selectedValue));
+        }
         return [...selected].some((selectedValue) => definition.key === 'state'
             ? values.some((value) => stateMatches(value, selectedValue))
             : values.map(normalizeFilterValue).includes(normalizeFilterValue(selectedValue)));
@@ -1010,7 +1027,6 @@ quickSearchInput?.addEventListener('input', () => {
 
 document.querySelectorAll('input[name="mode"]').forEach((radio) => {
     radio.addEventListener('change', () => {
-        // Both choices currently display the same list; direct-admission data is not provided by the API.
         showColleges();
     });
 });

@@ -26,7 +26,9 @@ class CollegeController extends Controller
      */
     public function apiIndex()
     {
-        $colleges = College::orderBy('id', 'desc')->get();
+        $colleges = College::with('courses:id,college_id,name')
+            ->orderBy('id', 'desc')
+            ->get();
 
         return response()->json([
             'message' => 'Colleges fetched successfully',

@@ -26,18 +26,6 @@
           <li><a href="{{ url('/employees') }}" style="color: #d1d5db;">Employees</a> <b class="chev"></b></li>
 
           <li class="icon">
-            <a href="{{ route('dashboard') }}" title="Dashboard" aria-label="Dashboard">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-              </svg>
-            </a>
-          </li>
-
-          <li class="icon">
             <a href="#" id="openSearch" title="Search" aria-label="Search">
               <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
                 stroke-linecap="round">
@@ -49,7 +37,7 @@
         </ul>
       </div>
 
-      <div class="crumb"><a href="{{ url('/dashboard') }}">Dashboard</a> / <b>Colleges in India 2026</b></div>
+      <div class="crumb"><b>Colleges in India 2026</b></div>
     </div>
   </header>
 
@@ -119,7 +107,6 @@
         <div>
           <h4>System</h4>
           <ul>
-            <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
             <li><a href="{{ url('/logout') }}">Logout</a></li>
           </ul>
         </div>
@@ -149,5 +136,4 @@
 </body>
 
 </html>
-
 

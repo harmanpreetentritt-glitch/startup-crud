@@ -207,6 +207,16 @@
 
             </div>
 
+            <div class="form-group">
+                <label for="eligibility">Eligibility criteria</label>
+                <textarea id="eligibility" name="eligibility" rows="3" maxlength="5000" placeholder="Enter the course eligibility criteria">{{ old('eligibility', $course->eligibility) }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="exam_required">Entrance exam</label>
+                <input id="exam_required" name="exam_required" type="text" maxlength="255" value="{{ old('exam_required', $course->exam_required) }}" placeholder="e.g. JEE Advanced">
+            </div>
+
 
             <!-- Buttons -->
 

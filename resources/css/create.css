@@ -109,7 +109,8 @@ body {
 /* INPUTS + SELECT */
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
     width: 100%;
 
     height: 44px;
@@ -132,6 +133,12 @@ body {
     transition: all 0.2s ease;
 }
 
+.form-group textarea {
+    height: auto;
+    min-height: 100px;
+    resize: vertical;
+}
+
 
 /* Placeholder */
 
@@ -143,7 +150,8 @@ body {
 /* Focus */
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
     border-color: #2B303B;
 
     box-shadow: 0 0 0 2px rgba(43, 48, 59, 0.08);

@@ -1,0 +1,10 @@
+[33m5c065e2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{Wed Sep 30 13:18:59 2026}: pull --ff-only origin main: Fast-forward
+[33m5eb5120[m HEAD@{Wed Sep 30 13:18:45 2026}: rebase (abort): returning to refs/heads/main
+[33mb2e03fb[m HEAD@{Wed Sep 30 12:57:34 2026}: reset: moving to b2e03fbf609246abed986875dc2ddb61e934de89
+[33ma29a3c9[m HEAD@{Wed Sep 30 12:39:56 2026}: commit: resolve merge conflicts
+[33m453acaf[m HEAD@{Wed Sep 30 12:37:44 2026}: pull --rebase origin main (start): checkout 453acaf051fe4a96b8617e55b6edbf281c60d7a4
+[33m5eb5120[m HEAD@{Wed Sep 30 12:37:32 2026}: commit (merge): Resolve merge conflicts
+[33mcf6e41c[m HEAD@{Wed Sep 30 12:24:58 2026}: commit: feat:Add courses page
+[33m403536f[m HEAD@{Tue Sep 29 18:48:42 2026}: pull: Merge made by the 'ort' strategy.
+[33m18f5e0e[m HEAD@{Tue Sep 29 18:47:08 2026}: commit: style:changes card layout
+[33md4d3e13[m HEAD@{Tue Sep 29 18:20:43 2026}: commit: fix:js errors

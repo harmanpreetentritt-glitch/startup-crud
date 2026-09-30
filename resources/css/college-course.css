@@ -13,9 +13,10 @@ h1 { margin: 0; color: #183451; font-size: 30px; letter-spacing: -.04em; }
 .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
 .field label { color: #334960; font-size: 12px; font-weight: 650; }
 .field label span { color: #d04444; }
-.field input { width: 100%; min-height: 46px; padding: 12px 13px; border: 1px solid #dce4ec; border-radius: 7px; background: #fbfcfe; color: #24384d; font: inherit; font-size: 13px; outline: none; }
-.field input:focus { border-color: #228f81; background: #fff; box-shadow: 0 0 0 3px #228f811a; }
-.field input::placeholder { color: #a1adba; }
+.field input, .field textarea { width: 100%; min-height: 46px; padding: 12px 13px; border: 1px solid #dce4ec; border-radius: 7px; background: #fbfcfe; color: #24384d; font: inherit; font-size: 13px; outline: none; }
+.field textarea { min-height: 96px; resize: vertical; }
+.field input:focus, .field textarea:focus { border-color: #228f81; background: #fff; box-shadow: 0 0 0 3px #228f811a; }
+.field input::placeholder, .field textarea::placeholder { color: #a1adba; }
 .field small { color: #8693a2; font-size: 11px; line-height: 1.5; }
 .field .error-text { color: #b42318; }
 .actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 26px; padding-top: 20px; border-top: 1px solid #edf0f4; }
