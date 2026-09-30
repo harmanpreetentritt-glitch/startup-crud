@@ -130,5 +130,8 @@ Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
 
 // ==================== COLLEGES ====================
 
-// Existing frontend page
 Route::get('/colleges', [CollegeController::class, 'index']);
+Route::post('/colleges', [CollegeController::class, 'store']);
+Route::get('/colleges/{id}', [CollegeController::class, 'show']);
+Route::put('/colleges/{id}', [CollegeController::class, 'update']);
+Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
