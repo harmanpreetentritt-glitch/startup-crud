@@ -13,9 +13,22 @@
         <div class="detail-header-inner">
             <a class="brand" href="/colleges">Campus<span>Path</span></a>
             <nav aria-label="Main navigation">
-                <a href="/colleges">Colleges</a>
-                <a href="/colleges#filters">Explore</a>
-                <a href="/courses">Courses</a>
+                <div class="colleges-menu-item">
+                    <a href="/colleges" aria-haspopup="true">Colleges <span class="detail-nav-chevron" aria-hidden="true"></span></a>
+                    @include('colleges.partials.popular-colleges-menu')
+                </div>
+                <div class="exams-menu-item">
+                    <a href="/colleges#filter-box-exam" aria-haspopup="true">Exams <span class="detail-nav-chevron" aria-hidden="true"></span></a>
+                    @include('colleges.partials.popular-exams-menu')
+                </div>
+                <div class="courses-menu-item">
+                    <a href="/courses" aria-haspopup="true">Courses <span class="detail-nav-chevron" aria-hidden="true"></span></a>
+                    @include('colleges.partials.popular-courses-menu')
+                </div>
+                <div class="careers-menu-item">
+                    <button type="button" class="careers-menu-trigger" aria-haspopup="true">Careers <span class="detail-nav-chevron" aria-hidden="true"></span></button>
+                    @include('colleges.partials.popular-careers-menu')
+                </div>
             </nav>
         </div>
     </header>

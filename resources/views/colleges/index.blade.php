@@ -20,10 +20,22 @@
       <div class="mainnav">
         <a href="{{ url('/colleges') }}" class="logo">Campus<span>Path</span></a>
         <ul class="menu">
-          <li><a href="{{ url('/colleges') }}" style="color: #fff; font-weight: 600;">Colleges</a> <b class="chev"></b></li>
-          <li><a href="{{ url('/courses') }}" style="color: #d1d5db;">Courses</a> <b class="chev"></b></li>
-          <li><a href="{{ url('/students') }}" style="color: #d1d5db;">Students</a> <b class="chev"></b></li>
-          <li><a href="{{ url('/employees') }}" style="color: #d1d5db;">Employees</a> <b class="chev"></b></li>
+          <li class="colleges-menu-item">
+            <a href="{{ url('/colleges') }}" style="color: #fff; font-weight: 600;" aria-haspopup="true">Colleges <b class="chev"></b></a>
+            @include('colleges.partials.popular-colleges-menu')
+          </li>
+          <li class="courses-menu-item">
+            <a href="{{ url('/courses') }}" style="color: #d1d5db;" aria-haspopup="true">Courses <b class="chev"></b></a>
+            @include('colleges.partials.popular-courses-menu')
+          </li>
+          <li class="exams-menu-item">
+            <a href="{{ url('/colleges#filter-box-exam') }}" style="color: #d1d5db;" aria-haspopup="true">Exams <b class="chev"></b></a>
+            @include('colleges.partials.popular-exams-menu')
+          </li>
+          <li class="careers-menu-item">
+            <button type="button" class="careers-menu-trigger" aria-haspopup="true">Careers <b class="chev"></b></button>
+            @include('colleges.partials.popular-careers-menu')
+          </li>
 
           <li class="icon">
             <a href="#" id="openSearch" title="Search" aria-label="Search">

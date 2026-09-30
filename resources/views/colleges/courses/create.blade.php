@@ -29,6 +29,45 @@
                 </div>
 
                 <div class="field">
+                    <label for="degree">Degree</label>
+                    <input id="degree" name="degree" type="text" maxlength="255" value="{{ old('degree') }}" placeholder="e.g. B.Tech">
+                </div>
+
+                //
+
+                <div class="field">
+    <label for="stream">Stream <span>*</span></label>
+    <select id="stream" name="stream" required>
+        <option value="">Select stream</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Management">Management</option>
+        <option value="Medical">Medical</option>
+        <option value="Science">Science</option>
+        <option value="Commerce">Commerce</option>
+        <option value="Arts">Arts</option>
+        <option value="Law">Law</option>
+        <option value="Design">Design</option>
+        <option value="Hotel Management">Hotel Management</option>
+        <option value="Computer Applications">Computer Applications</option>
+    </select>
+</div>
+
+                <div class="field">
+                    <label for="study_mode">Study mode</label>
+                    <select id="study_mode" name="study_mode">
+                        <option value="">Select mode</option>
+                        @foreach(['Regular', 'Full Time', 'Part Time', 'Online', 'Distance', 'Hybrid', 'Offline'] as $mode)
+                            <option value="{{ $mode }}" {{ old('study_mode') === $mode ? 'selected' : '' }}>{{ $mode }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="specialization">Specialization</label>
+                    <input id="specialization" name="specialization" type="text" maxlength="255" value="{{ old('specialization') }}" placeholder="e.g. Computer Science">
+                </div>
+
+                <div class="field">
                     <label for="duration">Duration / length <span>*</span></label>
                     <input id="duration" name="duration" type="text" maxlength="100" value="{{ old('duration') }}" placeholder="e.g. 4 years" required>
                     @error('duration') <small class="error-text">{{ $message }}</small> @enderror

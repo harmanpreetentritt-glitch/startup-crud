@@ -15,6 +15,9 @@ class Course extends Model
     'duration',
     'eligibility',
     'exam_required',
+    'degree',
+    'study_mode',
+    'specialization',
 ];
 
     public function college()

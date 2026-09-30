@@ -17,8 +17,9 @@ class CollegeController extends Controller
         }
 
         $colleges = College::orderBy('id', 'desc')->get();
+        $menuColleges = $colleges->take(14);
 
-        return view('colleges.index', compact('colleges'));
+        return view('colleges.index', compact('colleges', 'menuColleges'));
     }
 
     /**
@@ -26,7 +27,7 @@ class CollegeController extends Controller
      */
     public function apiIndex()
     {
-        $colleges = College::with('courses:id,college_id,name')
+        $colleges = College::with('courses:id,college_id,name,degree,study_mode,specialization,exam_required')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -64,6 +65,9 @@ class CollegeController extends Controller
             'description' => 'nullable|string',
             'logo' => 'nullable|string|max:255',
             'website' => 'nullable|url|max:255',
+            'hostel_facilities' => 'nullable|string|max:2000',
+            'hostel_fee' => 'nullable|numeric|min:0|max:99999999.99',
+            'facilities' => 'nullable|string|max:4000',
         ], [
             'name.required' => 'Please enter the college name.',
             'city.required' => 'Please enter the city.',
@@ -100,7 +104,9 @@ class CollegeController extends Controller
         }
 
         if (!$request->expectsJson() && !$request->ajax()) {
-            return view('colleges.show', ['collegeId' => $college->id]);
+            $menuColleges = College::orderBy('id', 'desc')->limit(14)->get(['id', 'name', 'established_year']);
+
+            return view('colleges.show', compact('college', 'menuColleges') + ['collegeId' => $college->id]);
         }
 
         return response()->json([
@@ -134,6 +140,9 @@ class CollegeController extends Controller
             'description' => 'nullable|string',
             'logo' => 'nullable|string|max:255',
             'website' => 'nullable|url|max:255',
+            'hostel_facilities' => 'nullable|string|max:2000',
+            'hostel_fee' => 'nullable|numeric|min:0|max:99999999.99',
+            'facilities' => 'nullable|string|max:4000',
         ], [
             'name.required' => 'Please enter the college name.',
             'city.required' => 'Please enter the city.',

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\College;
+use App\Models\Course;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -43,6 +44,40 @@ class CollegeCrudTest extends TestCase
                 ]
             ])
             ->assertJsonFragment(['name' => 'IIT Delhi']);
+    }
+
+    public function test_college_course_filter_metadata_is_saved_and_returned_by_api(): void
+    {
+        $college = College::create([
+            'name' => 'Engineering Test College',
+            'city' => 'Mumbai',
+            'state' => 'Maharashtra',
+            'type' => 'Public',
+        ]);
+
+        $response = $this->post('/colleges/' . $college->id . '/courses', [
+            'name' => 'Bachelor of Technology',
+            'duration' => '4 years',
+            'degree' => 'B.Tech',
+            'study_mode' => 'Full Time',
+            'specialization' => 'Computer Science',
+            'exam_required' => 'JEE Main',
+        ]);
+
+        $response->assertRedirect('/colleges/' . $college->id . '#college-courses');
+        $this->assertDatabaseHas('courses', [
+            'college_id' => $college->id,
+            'degree' => 'B.Tech',
+            'study_mode' => 'Full Time',
+            'specialization' => 'Computer Science',
+            'exam_required' => 'JEE Main',
+        ]);
+
+        $this->getJson('/api/colleges')
+            ->assertJsonPath('data.0.courses.0.degree', 'B.Tech')
+            ->assertJsonPath('data.0.courses.0.study_mode', 'Full Time')
+            ->assertJsonPath('data.0.courses.0.specialization', 'Computer Science')
+            ->assertJsonPath('data.0.courses.0.exam_required', 'JEE Main');
     }
 
     public function test_can_create_college_with_all_fields(): void

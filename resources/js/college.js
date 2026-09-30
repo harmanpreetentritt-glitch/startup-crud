@@ -681,20 +681,22 @@ let colleges = [];
 const filterDefinitions = [
     { key: 'stream', label: 'Stream', fields: ['stream', 'streams'], single: true, options: ['Commerce & Banking', 'Design', 'Engineering', 'Hotel Management', 'Information Technology', 'Management', 'Medical', 'Science', 'Law', 'Arts & Humanities', 'Agriculture', 'Education'] },
     { key: 'degree', label: 'Degree', fields: ['degree', 'degrees'], options: ['B.A. (Bachelor of Arts)', 'B.Com. (Bachelor of Commerce)', 'B.Des. (Bachelor of Design)', 'B.Sc. (Bachelor of Science)', 'B.Tech. (Bachelor of Technology)', 'B.B.A. (Bachelor of Business Administration)', 'B.C.A. (Bachelor of Computer Applications)', 'M.A. (Master of Arts)', 'M.B.A. (Master of Business Administration)', 'M.C.A. (Master of Computer Applications)', 'M.Sc. (Master of Science)', 'M.Tech. (Master of Technology)', 'M.B.B.S. (Bachelor of Medicine and Bachelor of Surgery)', 'LL.B. (Bachelor of Laws)'] },
-    { key: 'state', label: 'State / Union Territory', fields: ['state'], options: [
-        'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana',
-        'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
-        'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu',
-        'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands',
-        'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Jammu and Kashmir', 'Ladakh',
-        'Lakshadweep', 'Puducherry',
-    ] },
+    {
+        key: 'state', label: 'State / Union Territory', fields: ['state'], options: [
+            'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana',
+            'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
+            'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu',
+            'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands',
+            'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Jammu and Kashmir', 'Ladakh',
+            'Lakshadweep', 'Puducherry',
+        ]
+    },
     { key: 'city', label: 'City', fields: ['city'] },
     { key: 'study_mode', label: 'Study Mode', fields: ['study_mode', 'study_modes', 'mode'], options: ['Regular', 'Full Time', 'Part Time', 'Online', 'Distance', 'Hybrid'] },
     { key: 'specialization', label: 'Specialization', fields: ['specialization', 'specializations'], options: ['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Electrical Engineering', 'Electronics', 'Data Science', 'Finance', 'Marketing', 'Human Resources', 'Business Analytics', 'Medicine', 'Design'] },
     { key: 'type', label: 'Institute Type', fields: ['type', 'institute_type'], options: ['Public', 'Government', 'Private', 'Deemed', 'Autonomous'] },
     { key: 'exam', label: 'Exam', fields: ['exam', 'exams'], options: ['JEE Main', 'JEE Advanced', 'NEET UG', 'NEET PG', 'CUET', 'CAT', 'MAT', 'GATE', 'CLAT', 'NIFT', 'NID DAT'] },
-    { key: 'hostel', label: 'Hostel', fields: ['hostel', 'hostels', 'hostel_type', 'hostel_facility'], options: ['Boys Hostel', 'Girls Hostel'] },
+    { key: 'hostel', label: 'Hostel', fields: ['hostel', 'hostels', 'hostel_type', 'hostel_facility', 'hostel_facilities'], options: ['Boys Hostel', 'Girls Hostel'] },
     { key: 'hostel_fee', label: 'Hostel Fee Range', fields: ['hostel_fee', 'hostel_fee_range', 'hostel_fees'], range: true },
     { key: 'facilities', label: 'Facilities', fields: ['facility', 'facilities'], options: ['Boys Hostel', 'Girls Hostel', 'Library', 'Laboratories', 'Sports Facilities', 'Cafeteria', 'Wi-Fi', 'Transport', 'Medical Facilities', 'Auditorium'] },
 ];
@@ -772,9 +774,9 @@ function makeCard(college) {
             <div class="card-body">
                 <div class="cimg">
                     ${college.logo
-                        ? `<img src="${escapeHtml(college.logo)}" alt="${escapeHtml(college.name)}">`
-                        : escapeHtml(college.name)
-                    }
+            ? `<img src="${escapeHtml(college.logo)}" alt="${escapeHtml(college.name)}">`
+            : escapeHtml(college.name)
+        }
                 </div>
 
                 <div class="cinfo">
@@ -823,16 +825,101 @@ function fieldValues(college, fields) {
     });
 }
 
+function splitFilterValues(value) {
+    return (Array.isArray(value) ? value : [value])
+        .flatMap((item) => String(item ?? '').split(/[,;\n]+/))
+        .map((item) => item.trim())
+        .filter(Boolean);
+}
+
+const degreeAliasGroups = [
+    ['btech', ['btech', 'bacheloroftechnology', 'bachelorofengineering']],
+    ['mtech', ['mtech', 'masteroftechnology', 'masterofengineering']],
+    ['barch', ['barch', 'bachelorofarchitecture']],
+    ['bsc', ['bsc', 'bachelorofscience']],
+    ['msc', ['msc', 'masterofscience']],
+    ['ba', ['ba', 'bachelorofarts']],
+    ['ma', ['ma', 'masterofarts']],
+    ['mba', ['mba', 'masterofbusinessadministration']],
+    ['bba', ['bba', 'bachelorofbusinessadministration']],
+    ['bcom', ['bcom', 'bachelorofcommerce']],
+    ['bca', ['bca', 'bachelorofcomputerapplications', 'bachelorofcomputerapplication']],
+    ['mca', ['mca', 'masterofcomputerapplications']],
+    ['mbbs', ['mbbs', 'bachelorofmedicineandbachelorofsurgery']],
+    ['bdes', ['bdes', 'bachelorofdesign']],
+    ['bed', ['bed', 'bachelorofeducation']],
+    ['bpharm', ['bpharma', 'bpharm', 'bachelorofpharmacy']],
+    ['llb', ['llb', 'bacheloroflaws']],
+];
+
+function degreeKeys(value) {
+    const normalized = normalizeFilterValue(value);
+    return degreeAliasGroups
+        .filter(([, aliases]) => aliases.some((alias) => normalized === alias
+            || (alias.length >= 3 && normalized.includes(alias))))
+        .map(([key]) => key);
+}
+
+function collegeFilterValues(college, definition) {
+    const values = fieldValues(college, definition.fields).flatMap(splitFilterValues);
+    const courses = college.courses || [];
+
+    if (definition.key === 'degree') {
+        courses.forEach((course) => {
+            const explicitDegrees = splitFilterValues(course.degree);
+            const inferredDegrees = degreeKeys(course.name);
+            values.push(...explicitDegrees, ...(inferredDegrees.length ? inferredDegrees : splitFilterValues(course.name)));
+        });
+    } else if (definition.key === 'study_mode') {
+        courses.forEach((course) => values.push(...splitFilterValues(course.study_mode)));
+    } else if (definition.key === 'specialization') {
+        courses.forEach((course) => values.push(...splitFilterValues(course.specialization)));
+    } else if (definition.key === 'exam') {
+        courses.forEach((course) => values.push(...splitFilterValues(course.exam_required)));
+    }
+
+    return [...new Set(values)];
+}
+
+function filterValueMatches(definition, actual, selected) {
+    if (definition.key === 'state') return stateMatches(actual, selected);
+    if (definition.key === 'degree') {
+        const actualDegrees = degreeKeys(actual);
+        const selectedDegrees = degreeKeys(selected);
+        if (actualDegrees.length && selectedDegrees.length) {
+            return actualDegrees.some((degree) => selectedDegrees.includes(degree));
+        }
+    }
+    return normalizeFilterValue(actual) === normalizeFilterValue(selected);
+}
+
 function collegeMatchesStream(college, stream) {
     const normalizedStream = normalizeFilterValue(stream);
     const collegeStreams = fieldValues(college, ['stream', 'streams']);
-    const courseNames = (college.courses || []).map((course) => course.name).filter(Boolean);
+    const courseDetails = (college.courses || []).flatMap((course) =>
+        [course.name, course.degree, course.specialization].filter(Boolean)
+    );
     const streamCourseTerms = {
         engineering: ['engineering', 'btech', 'mtech', 'bachelorofengineering', 'masterofengineering', 'bacheloroftechnology', 'masteroftechnology'],
+        management: ['management', 'mba', 'bba', 'businessadministration', 'bms'],
+        commercebanking: ['commerce', 'banking', 'bcom', 'accountancy'],
+        medical: ['medical', 'medicine', 'mbbs', 'bds', 'bpharm', 'pharmacy', 'nursing'],
+        science: ['science', 'bsc', 'msc', 'radiotherapy', 'statistics'],
+        hotelmanagement: ['hotelmanagement', 'hospitality'],
+        informationtechnology: ['informationtechnology', 'computerapplication', 'bca', 'software'],
+        law: ['law', 'llb', 'clat'],
+        agriculture: ['agriculture', 'bscagriculture'],
+        design: ['design', 'bdes', 'fashiondesign'],
+        education: ['education', 'bed', 'teaching'],
+        masscommunication: ['masscommunication', 'journalism', 'communication'],
+        artsandhumanities: ['arts', 'humanities', 'liberalarts'],
+        nursing: ['nursing'],
+        dental: ['dental', 'bds', 'dentistry'],
+        performingarts: ['performingarts', 'theatre', 'music'],
     }[normalizedStream] || [normalizedStream];
 
     return collegeStreams.some((value) => normalizeFilterValue(value) === normalizedStream)
-        || courseNames.some((name) => streamCourseTerms.some((term) => normalizeFilterValue(name).includes(term)));
+        || courseDetails.some((detail) => streamCourseTerms.some((term) => normalizeFilterValue(detail).includes(term)));
 }
 
 const hostelFeeRanges = [
@@ -862,29 +949,22 @@ function filterOptions(definition) {
 
     const counts = new Map();
     colleges.forEach((college) => {
-        new Set(fieldValues(college, definition.fields)).forEach((value) => {
+        new Set(collegeFilterValues(college, definition)).forEach((value) => {
             counts.set(value, (counts.get(value) || 0) + 1);
         });
     });
     const options = new Map();
     (definition.options || []).forEach((label) => {
         const normalizedOption = normalizeFilterValue(label);
-        const optionAliases = definition.key === 'state'
-            ? normalizedStateValues(label)
-            : new Set([normalizedOption]);
         const matchingCount = definition.key === 'stream'
             ? colleges.filter((college) => collegeMatchesStream(college, label)).length
-            : [...counts.entries()].reduce((total, [value, count]) => {
-                const normalizedValue = normalizeFilterValue(value);
-                return total + (optionAliases.has(normalizedValue) ? count : 0);
-            }, 0);
+            : colleges.filter((college) => collegeFilterValues(college, definition)
+                .some((value) => filterValueMatches(definition, value, label))).length;
         options.set(normalizedOption, { value: label, label, count: matchingCount });
     });
     counts.forEach((count, value) => {
         const normalizedValue = normalizeFilterValue(value);
-        const hasOption = (definition.options || []).some((label) => definition.key === 'state'
-            ? stateMatches(value, label)
-            : normalizeFilterValue(label) === normalizedValue);
+        const hasOption = (definition.options || []).some((label) => filterValueMatches(definition, value, label));
         if (!hasOption && !options.has(normalizedValue)) options.set(normalizedValue, { value, label: value, count });
     });
     return [...options.values()].sort((a, b) => a.label.localeCompare(b.label));
@@ -934,13 +1014,13 @@ function collegeMatchesFilters(college) {
         const selected = chosenFilters[definition.key];
         if (!selected.size) return true;
         if (definition.range) return selected.has(hostelFeeRange(college));
-        const values = fieldValues(college, definition.fields);
         if (definition.key === 'stream') {
             return [...selected].some((selectedValue) => collegeMatchesStream(college, selectedValue));
         }
-        return [...selected].some((selectedValue) => definition.key === 'state'
-            ? values.some((value) => stateMatches(value, selectedValue))
-            : values.map(normalizeFilterValue).includes(normalizeFilterValue(selectedValue)));
+        const values = collegeFilterValues(college, definition);
+        return [...selected].some((selectedValue) =>
+            values.some((value) => filterValueMatches(definition, value, selectedValue))
+        );
     });
 }
 

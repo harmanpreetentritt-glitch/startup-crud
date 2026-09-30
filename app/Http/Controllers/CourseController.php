@@ -23,6 +23,9 @@ class CourseController extends Controller
             'duration' => 'required|string|max:100',
             'eligibility' => 'nullable|string|max:5000',
             'exam_required' => 'nullable|string|max:255',
+            'degree' => 'nullable|string|max:255',
+            'study_mode' => 'nullable|string|max:50',
+            'specialization' => 'nullable|string|max:255',
         ]);
 
         $college->courses()->create($validated);
@@ -56,6 +59,9 @@ class CourseController extends Controller
         'duration' => 'required|string|max:100',
         'eligibility' => 'nullable|string|max:5000',
         'exam_required' => 'nullable|string|max:255',
+        'degree' => 'nullable|string|max:255',
+        'study_mode' => 'nullable|string|max:50',
+        'specialization' => 'nullable|string|max:255',
     ]);
 
     Course::create([
@@ -67,6 +73,9 @@ class CourseController extends Controller
         'duration' => $request->duration,
         'eligibility' => $request->input('eligibility'),
         'exam_required' => $request->input('exam_required'),
+        'degree' => $request->input('degree'),
+        'study_mode' => $request->input('study_mode'),
+        'specialization' => $request->input('specialization'),
     ]);
 
     return redirect('/courses')->with('success', 'Course created successfully.');
@@ -90,6 +99,9 @@ public function update(Request $request, $id)
         'duration' => 'required|string|max:100',
         'eligibility' => 'nullable|string|max:5000',
         'exam_required' => 'nullable|string|max:255',
+        'degree' => 'nullable|string|max:255',
+        'study_mode' => 'nullable|string|max:50',
+        'specialization' => 'nullable|string|max:255',
     ]);
 
     $course = Course::findOrFail($id);
@@ -102,6 +114,9 @@ public function update(Request $request, $id)
     $course->duration = $request->duration;
     $course->eligibility = $request->input('eligibility');
     $course->exam_required = $request->input('exam_required');
+    $course->degree = $request->input('degree');
+    $course->study_mode = $request->input('study_mode');
+    $course->specialization = $request->input('specialization');
 
     $course->save();
 

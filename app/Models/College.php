@@ -20,6 +20,9 @@ class College extends Model
         'description',
         'logo',
         'website',
+        'hostel_facilities',
+        'hostel_fee',
+        'facilities',
     ];
 
     public function courses()

@@ -64,38 +64,24 @@
                 </select>
             </div>
 
-
-            <!-- Mode of Course -->
+            <div class="form-group">
+                <label for="degree">Degree</label>
+                <input id="degree" name="degree" type="text" maxlength="255" value="{{ old('degree', $course->degree) }}" placeholder="e.g. B.Tech">
+            </div>
 
             <div class="form-group">
-
-                <label for="mode">Mode of Course</label>
-
-                <select
-                    id="mode"
-                    name="mode"
-                    required
-                >
-
+                <label for="study_mode">Study Mode</label>
+                <select id="study_mode" name="study_mode">
                     <option value="">Select mode</option>
-
-                    <option value="Online"
-                        {{ $course->mode == 'Online' ? 'selected' : '' }}>
-                        Online
-                    </option>
-
-                    <option value="Offline"
-                        {{ $course->mode == 'Offline' ? 'selected' : '' }}>
-                        Offline
-                    </option>
-
-                    <option value="Hybrid"
-                        {{ $course->mode == 'Hybrid' ? 'selected' : '' }}>
-                        Hybrid
-                    </option>
-
+                    @foreach(['Regular', 'Full Time', 'Part Time', 'Online', 'Distance', 'Hybrid', 'Offline'] as $mode)
+                        <option value="{{ $mode }}" {{ old('study_mode', $course->study_mode) === $mode ? 'selected' : '' }}>{{ $mode }}</option>
+                    @endforeach
                 </select>
+            </div>
 
+            <div class="form-group">
+                <label for="specialization">Specialization</label>
+                <input id="specialization" name="specialization" type="text" maxlength="255" value="{{ old('specialization', $course->specialization) }}" placeholder="e.g. Computer Science">
             </div>
 
 

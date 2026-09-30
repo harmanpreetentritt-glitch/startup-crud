@@ -67,6 +67,23 @@
                             <input id="established_year" name="established_year" type="number" min="1800" max="{{ date('Y') }}" step="1" placeholder="e.g. 1995">
                         </div>
 
+                        <div class="field">
+                            <label for="hostel_facilities">Hostel facilities</label>
+                            <input id="hostel_facilities" name="hostel_facilities" type="text" maxlength="2000" placeholder="Boys Hostel, Girls Hostel">
+                            <small>Separate multiple facilities with commas.</small>
+                        </div>
+
+                        <div class="field">
+                            <label for="hostel_fee">Annual hostel fee</label>
+                            <input id="hostel_fee" name="hostel_fee" type="number" min="0" step="0.01" placeholder="e.g. 85000">
+                        </div>
+
+                        <div class="field field-wide">
+                            <label for="facilities">Campus facilities</label>
+                            <input id="facilities" name="facilities" type="text" maxlength="4000" placeholder="Library, Laboratories, Sports Facilities">
+                            <small>Separate multiple facilities with commas.</small>
+                        </div>
+
                         <div class="field field-wide">
                             <label for="website">Website</label>
                             <input id="website" name="website" type="url" maxlength="255" placeholder="https://www.example.edu">
