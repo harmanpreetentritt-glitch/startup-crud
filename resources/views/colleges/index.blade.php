@@ -12,7 +12,7 @@
 </head>
 
 <body>
-
+  <!--VIEW COLLEGE-->
   <!-- HEADER -->
   <header class="site-header">
     <div class="container">
@@ -21,19 +21,23 @@
         <a href="{{ url('/colleges') }}" class="logo">Campus<span>Path</span></a>
         <ul class="menu">
           <li class="colleges-menu-item">
-            <a href="{{ url('/colleges') }}" style="color: #fff; font-weight: 600;" aria-haspopup="true">Colleges <b class="chev"></b></a>
+            <a href="{{ url('/colleges') }}" style="color: #fff; font-weight: 600;" aria-haspopup="true">Colleges <b
+                class="chev"></b></a>
             @include('colleges.partials.popular-colleges-menu')
           </li>
           <li class="courses-menu-item">
-            <a href="{{ url('/courses') }}" style="color: #d1d5db;" aria-haspopup="true">Courses <b class="chev"></b></a>
+            <a href="{{ url('/courses') }}" style="color: #d1d5db;" aria-haspopup="true">Courses <b
+                class="chev"></b></a>
             @include('colleges.partials.popular-courses-menu')
           </li>
           <li class="exams-menu-item">
-            <a href="{{ url('/colleges#filter-box-exam') }}" style="color: #d1d5db;" aria-haspopup="true">Exams <b class="chev"></b></a>
+            <a href="{{ url('/colleges#filter-box-exam') }}" style="color: #d1d5db;" aria-haspopup="true">Exams <b
+                class="chev"></b></a>
             @include('colleges.partials.popular-exams-menu')
           </li>
           <li class="careers-menu-item">
-            <button type="button" class="careers-menu-trigger" aria-haspopup="true">Careers <b class="chev"></b></button>
+            <button type="button" class="careers-menu-trigger" aria-haspopup="true">Careers <b
+                class="chev"></b></button>
             @include('colleges.partials.popular-careers-menu')
           </li>
 
@@ -43,6 +47,14 @@
                 stroke-linecap="round">
                 <circle cx="10.5" cy="10.5" r="6.5" />
                 <path d="M15.5 15.5L21 21" />
+              </svg>
+            </a>
+          </li>
+          <li class="account-icon">
+            <a href="{{ route('auth.login') }}" title="Log in" aria-label="Log in">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21a8 8 0 0 1 16 0" />
               </svg>
             </a>
           </li>
@@ -62,6 +74,7 @@
       <section class="results">
         <div class="results-toolbar">
           <div class="toggle">
+            <!-- Radio buttons -->
             <label><input type="radio" name="mode" value="all" checked><i></i>All Colleges</label>
             <label><input type="radio" name="mode" value="direct"><i></i>Direct Admission</label>
           </div>
@@ -74,7 +87,7 @@
             <input type="search" id="quickSearchInput" placeholder="Quick search by name or city...">
           </div>
         </div>
-
+  <!-- Search Chips -->
         <div class="chips" id="chips"></div>
         <h2 class="count" id="count"></h2>
         <a class="add-college-link" href="{{ url('/colleges/create') }}">+ Add a college</a>
@@ -106,15 +119,15 @@
           </ul>
         </div>
 
-        <div>
+        <!-- <div>
           <h4>Quick Modules</h4>
           <ul>
             <li><a href="{{ url('/courses') }}">Course Management</a></li>
-            <li><a href="{{ url('/students') }}">Student Records</a></li>
-            <li><a href="{{ url('/employees') }}">Employee Directory</a></li>
-            <li><a href="{{ url('/products') }}">Store &amp; Products</a></li>
-          </ul>
-        </div>
+            <li><a href="{{ url('/students') }}">Student Records</a></li> -->
+            <!-- <li><a href="{{ url('/employees') }}">Employee Directory</a></li> -->
+            <!-- <li><a href="{{ url('/products') }}">Store &amp; Products</a></li> -->
+          <!-- </ul> -->
+        <!-- </div> - -->
 
         <div>
           <h4>System</h4>
@@ -136,16 +149,14 @@
     <div class="sp-box">
       <div class="sp-top">
         <input type="search" id="spInput" placeholder="Search colleges, courses, cities..." autocomplete="off">
-        <button class="sp-close" id="spClose" aria-label="Close">✕</button>
+        <!-- <button class="sp-close" id="spClose" aria-label="Close">✕</button> -->
       </div>
       <div class="sp-results" id="spResults"></div>
     </div>
   </div>
 
-  <!--TOP BUTTON-->
+  <!--BACK TO TOP BUTTON-->
   <button id="toTop" class="totop" aria-label="Back to top"><span>⌃⌃</span>Top</button>
-
 </body>
 
 </html>
-

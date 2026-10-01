@@ -275,6 +275,9 @@ a {
 .menu .icon a:hover svg {
     opacity: 0.75;
 }
+.menu .account-icon {
+    display: none;
+}
 .crumb {
     font-size: 14px;
 }
@@ -933,11 +936,20 @@ a {
     .cimg {
         width: 100%;
     }
-    .menu
-        li:not(.icon):not(.courses-menu-item):not(.exams-menu-item):not(
-            .colleges-menu-item
-        ):not(.careers-menu-item) {
+    .menu > li.colleges-menu-item,
+    .menu > li.courses-menu-item,
+    .menu > li.exams-menu-item,
+    .menu > li.careers-menu-item {
         display: none;
+    }
+    .menu > li.account-icon {
+        display: block;
+    }
+    .menu .account-icon a {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        line-height: 0;
     }
     .menu {
         gap: 14px;
@@ -1765,4 +1777,71 @@ a {
         opacity: 0;
         transform: translateY(10px);
     }
+}
+.menu .account-icon {
+    display: flex;
+    align-items: center;
+}
+
+.menu .account-icon a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-left: 8px;
+    border-radius: 50%;
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+}
+
+.menu .account-icon a:hover {
+    background: rgba(255, 255, 255, 0.14);
+    /* color: #f6a93b; */
+}
+.menu .account-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* filter buttons */
+.filters input[type="checkbox"],
+.filters input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    border: 1.5px solid #9aa0b4;
+    border-radius: 4px; /* square with softly rounded corners */
+    background: #fff;
+    position: relative;
+    cursor: pointer;
+}
+
+.filters input[type="checkbox"]:checked,
+.filters input[type="radio"]:checked {
+    background: #3b4bd8;
+    border-color: #3b4bd8;
+}
+
+.filters input[type="checkbox"]:checked::after,
+.filters input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.filters label i,
+.filters label span::before,
+.filters label::before {
+    border-radius: 4px !important;
 }

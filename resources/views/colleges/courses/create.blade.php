@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,10 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/college-course.css'])
 </head>
+
 <body>
+    
     <header class="course-header">
         <a class="brand" href="/colleges">Campus<span>Path</span></a>
-        <a class="back-link" href="/colleges/{{ $college->id }}#college-courses">&#8592; Back to {{ $college->name }}</a>
+        <a class="back-link" href="/colleges/{{ $college->id }}#college-courses">&#8592; Back to
+            {{ $college->name }}</a>
     </header>
 
     <main class="course-page">
@@ -24,65 +28,53 @@
                 @csrf
                 <div class="field">
                     <label for="name">Course name <span>*</span></label>
-                    <input id="name" name="name" type="text" maxlength="100" value="{{ old('name') }}" placeholder="e.g. Bachelor of Technology" required>
+                    <input id="name" name="name" type="text" maxlength="100" value="{{ old('name') }}"
+                        placeholder="e.g. Bachelor of Technology" required>
                     @error('name') <small class="error-text">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="field">
                     <label for="degree">Degree</label>
-                    <input id="degree" name="degree" type="text" maxlength="255" value="{{ old('degree') }}" placeholder="e.g. B.Tech">
+                    <input id="degree" name="degree" type="text" maxlength="255" value="{{ old('degree') }}"
+                        placeholder="e.g. B.Tech">
                 </div>
-
-                //
-
-                <div class="field">
-    <label for="stream">Stream <span>*</span></label>
-    <select id="stream" name="stream" required>
-        <option value="">Select stream</option>
-        <option value="Engineering">Engineering</option>
-        <option value="Management">Management</option>
-        <option value="Medical">Medical</option>
-        <option value="Science">Science</option>
-        <option value="Commerce">Commerce</option>
-        <option value="Arts">Arts</option>
-        <option value="Law">Law</option>
-        <option value="Design">Design</option>
-        <option value="Hotel Management">Hotel Management</option>
-        <option value="Computer Applications">Computer Applications</option>
-    </select>
-</div>
 
                 <div class="field">
                     <label for="study_mode">Study mode</label>
                     <select id="study_mode" name="study_mode">
                         <option value="">Select mode</option>
                         @foreach(['Regular', 'Full Time', 'Part Time', 'Online', 'Distance', 'Hybrid', 'Offline'] as $mode)
-                            <option value="{{ $mode }}" {{ old('study_mode') === $mode ? 'selected' : '' }}>{{ $mode }}</option>
+                            <option value="{{ $mode }}" {{ old('study_mode') === $mode ? 'selected' : '' }}>{{ $mode }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="field">
                     <label for="specialization">Specialization</label>
-                    <input id="specialization" name="specialization" type="text" maxlength="255" value="{{ old('specialization') }}" placeholder="e.g. Computer Science">
+                    <input id="specialization" name="specialization" type="text" maxlength="255"
+                        value="{{ old('specialization') }}" placeholder="e.g. Computer Science">
                 </div>
 
                 <div class="field">
                     <label for="duration">Duration / length <span>*</span></label>
-                    <input id="duration" name="duration" type="text" maxlength="100" value="{{ old('duration') }}" placeholder="e.g. 4 years" required>
+                    <input id="duration" name="duration" type="text" maxlength="100" value="{{ old('duration') }}"
+                        placeholder="e.g. 4 years" required>
                     @error('duration') <small class="error-text">{{ $message }}</small> @enderror
                     <small>Examples: “3 years”, “4 years”, or “6 semesters”.</small>
                 </div>
 
                 <div class="field">
                     <label for="eligibility">Eligibility criteria</label>
-                    <textarea id="eligibility" name="eligibility" rows="3" maxlength="5000" placeholder="e.g. 10+2 with Physics, Chemistry, and Mathematics">{{ old('eligibility') }}</textarea>
+                    <textarea id="eligibility" name="eligibility" rows="3" maxlength="5000"
+                        placeholder="e.g. 10+2 with Physics, Chemistry, and Mathematics">{{ old('eligibility') }}</textarea>
                     @error('eligibility') <small class="error-text">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="field">
                     <label for="exam_required">Entrance exam</label>
-                    <input id="exam_required" name="exam_required" type="text" maxlength="255" value="{{ old('exam_required') }}" placeholder="e.g. JEE Advanced">
+                    <input id="exam_required" name="exam_required" type="text" maxlength="255"
+                        value="{{ old('exam_required') }}" placeholder="e.g. JEE Advanced">
                     @error('exam_required') <small class="error-text">{{ $message }}</small> @enderror
                 </div>
 
@@ -94,4 +86,5 @@
         </section>
     </main>
 </body>
+
 </html>
