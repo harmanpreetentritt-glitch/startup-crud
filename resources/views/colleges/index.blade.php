@@ -119,16 +119,6 @@
           </ul>
         </div>
 
-        <!-- <div>
-          <h4>Quick Modules</h4>
-          <ul>
-            <li><a href="{{ url('/courses') }}">Course Management</a></li>
-            <li><a href="{{ url('/students') }}">Student Records</a></li> -->
-            <!-- <li><a href="{{ url('/employees') }}">Employee Directory</a></li> -->
-            <!-- <li><a href="{{ url('/products') }}">Store &amp; Products</a></li> -->
-          <!-- </ul> -->
-        <!-- </div> - -->
-
         <div>
           <h4>System</h4>
           <ul>
