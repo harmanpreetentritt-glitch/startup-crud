@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = [
+   protected $fillable = [
     'name',
     'college_id',
     'start_date',
@@ -14,10 +14,12 @@ class Course extends Model
     'length',
     'duration',
     'eligibility',
-    'exam_required',
-    'degree',
+    'stream',
+    'exam',
     'study_mode',
     'specialization',
+    'exam_required',
+    'degree',
 ];
 
     public function college()

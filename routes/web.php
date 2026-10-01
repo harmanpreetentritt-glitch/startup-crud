@@ -15,8 +15,7 @@ use App\Http\Controllers\CollegeController;
 | Web Routes
 |--------------------------------------------------------------------------
 */
-
-// ==================== HOME ====================
+//  HOME
 
 Route::get('/', function () {
     return view('welcome');

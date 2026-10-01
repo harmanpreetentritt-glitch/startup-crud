@@ -68,6 +68,11 @@ class CollegeController extends Controller
             'hostel_facilities' => 'nullable|string|max:2000',
             'hostel_fee' => 'nullable|numeric|min:0|max:99999999.99',
             'facilities' => 'nullable|string|max:4000',
+            'stream' => 'nullable|string|max:255',
+            'degree' => 'nullable|string|max:255',
+            'study_mode' => 'nullable|string|max:255',
+            'specialization' => 'nullable|string|max:255',
+            'exam' => 'nullable|string|max:255',
         ], [
             'name.required' => 'Please enter the college name.',
             'city.required' => 'Please enter the city.',

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    
+
     <header class="course-header">
         <a class="brand" href="/colleges">Campus<span>Path</span></a>
         <a class="back-link" href="/colleges/{{ $college->id }}#college-courses">&#8592; Back to
@@ -35,7 +35,7 @@
 
                 <div class="field">
                     <label for="degree">Stream</label>
-                    <input id="degree" name="degree" type="text" maxlength="255" value="{{ old('degree') }}"
+                    <input id="degree" name="stream" type="text" maxlength="255" value="{{ old('degree') }}"
                         placeholder="e.g. Engineering & technology">
                 </div>
 
@@ -72,10 +72,10 @@
                 </div>
 
                 <div class="field">
-                    <label for="exam_required">Entrance exam</label>
-                    <input id="exam_required" name="exam_required" type="text" maxlength="255"
-                        value="{{ old('exam_required') }}" placeholder="e.g. JEE Advanced">
-                    @error('exam_required') <small class="error-text">{{ $message }}</small> @enderror
+                    <label for="exam">Entrance exam</label>
+                    <input id="exam" name="exam" type="text" maxlength="255" value="{{ old('exam') }}"
+                        placeholder="e.g. JEE Advanced">
+                    @error('exam') <small class="error-text">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="actions">

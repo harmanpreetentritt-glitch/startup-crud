@@ -23,6 +23,11 @@ class College extends Model
         'hostel_facilities',
         'hostel_fee',
         'facilities',
+        'stream',
+        'degree',
+        'study_mode',
+        'specialization',
+        'exam',
     ];
 
     public function courses()
