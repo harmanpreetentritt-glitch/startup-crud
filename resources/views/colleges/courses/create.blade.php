@@ -29,18 +29,18 @@
                 <div class="field">
                     <label for="name">Course name <span>*</span></label>
                     <input id="name" name="name" type="text" maxlength="100" value="{{ old('name') }}"
-                        placeholder="e.g. Bachelor of Technology" required>
+                        placeholder="e.g. B.Tech" required>
                     @error('name') <small class="error-text">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="field">
-                    <label for="degree">Degree</label>
+                    <label for="degree">Stream</label>
                     <input id="degree" name="degree" type="text" maxlength="255" value="{{ old('degree') }}"
-                        placeholder="e.g. B.Tech">
+                        placeholder="e.g. Engineering & technology">
                 </div>
 
                 <div class="field">
-                    <label for="study_mode">Study mode</label>
+                    <label for="study_mode">Study mode<span>*</span></label>
                     <select id="study_mode" name="study_mode">
                         <option value="">Select mode</option>
                         @foreach(['Regular', 'Full Time', 'Part Time', 'Online', 'Distance', 'Hybrid', 'Offline'] as $mode)
@@ -53,15 +53,15 @@
                 <div class="field">
                     <label for="specialization">Specialization</label>
                     <input id="specialization" name="specialization" type="text" maxlength="255"
-                        value="{{ old('specialization') }}" placeholder="e.g. Computer Science">
+                        value="{{ old('specialization') }}" placeholder="e.g. AI & ML">
                 </div>
 
                 <div class="field">
-                    <label for="duration">Duration / length <span>*</span></label>
+                    <label for="duration">Duration<span>*</span></label>
                     <input id="duration" name="duration" type="text" maxlength="100" value="{{ old('duration') }}"
                         placeholder="e.g. 4 years" required>
                     @error('duration') <small class="error-text">{{ $message }}</small> @enderror
-                    <small>Examples: “3 years”, “4 years”, or “6 semesters”.</small>
+                    <!-- <small>Examples: “3 years”, “4 years”, or “6 semesters”.</small> -->
                 </div>
 
                 <div class="field">

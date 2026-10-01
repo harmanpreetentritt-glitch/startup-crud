@@ -73,35 +73,6 @@ async function loadColleges() {
 
 
 
-        // colleges = result.data;
-        // console.log('TEST COLLEGES:', colleges);
-
-        // TEMPORARY COURSE DATA FOR TESTING
-        // if (colleges.length > 0) {
-        //     colleges[0].courses = [
-        //         {
-        //             name: 'B.Tech Computer Science Engineering',
-        //             degree: 'B.Tech',
-        //             specialization: 'Computer Science',
-        //             study_mode: 'Regular',
-        //             exam_required: 'JEE Main'
-        //         },
-                // {
-                //     name: 'B.Tech Mechanical Engineering',
-                //     degree: 'B.Tech',
-                //     specialization: 'Mechanical Engineering',
-                //     study_mode: 'Regular',
-                //     exam_required: 'JEE Main'
-                // }
-        //     ];
-        //     console.log('Test courses:', colleges[0].courses);
-        // }
-
-        // console.log('Colleges from API:', colleges);
-        // renderFilters();
-        // showColleges();
-
-
     } catch (error) {
         console.error('Error loading colleges:', error);
 
@@ -674,5 +645,14 @@ if (topButton) {
     window.addEventListener('scroll', () => { topButton.style.display = window.scrollY > 400 ? 'flex' : 'none'; });
     topButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
+const spInput = document.getElementById('spInput');
+const spClose = document.getElementById('spClose');
 
+spInput.addEventListener('input', function () {
+    if (spInput.value.trim() !== '') {
+        spClose.style.display = 'none';
+    } else {
+        spClose.style.display = 'block';
+    }
+});
 loadColleges();

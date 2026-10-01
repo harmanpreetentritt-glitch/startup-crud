@@ -1845,3 +1845,7 @@ a {
 .filters label::before {
     border-radius: 4px !important;
 }
+
+#spInput::focus {
+    visibility: hidden;
+}

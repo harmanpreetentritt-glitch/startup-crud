@@ -103,9 +103,6 @@
         <div class="foot-brand">
           <a href="{{ url('/colleges') }}" class="logo">Campus<span>Path</span></a>
           <p>Find colleges, compare fees, check rankings and get admission guidance in one place.</p>
-          <!-- <div class="socials">
-            <i class="s fb">f</i><i class="s ig">â—Ž</i><i class="s in">in</i><i class="s x">ð•</i><i class="s yt">â–¶</i>
-          </div> -->
         </div>
 
         <div>
@@ -139,7 +136,7 @@
     <div class="sp-box">
       <div class="sp-top">
         <input type="search" id="spInput" placeholder="Search colleges, courses, cities..." autocomplete="off">
-        <!-- <button class="sp-close" id="spClose" aria-label="Close">✕</button> -->
+        <button class="sp-close" id="spClose" aria-label="Close">✕</button>
       </div>
       <div class="sp-results" id="spResults"></div>
     </div>
