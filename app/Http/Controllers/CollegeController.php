@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CollegeController extends Controller
 {
     /**
-     * Display the colleges view or return JSON if requested.
+     * Display colleges page or return JSON if requested.
      */
     public function index(Request $request)
     {
@@ -23,13 +23,11 @@ class CollegeController extends Controller
     }
 
     /**
-     * Return list of colleges as JSON.
+     * Return all colleges as JSON.
      */
     public function apiIndex()
     {
-        $colleges = College::with('courses:id,college_id,name,degree,study_mode,specialization,exam_required')
-            ->orderBy('id', 'desc')
-            ->get();
+        $colleges = College::orderBy('id', 'desc')->get();
 
         return response()->json([
             'message' => 'Colleges fetched successfully',
@@ -37,22 +35,27 @@ class CollegeController extends Controller
         ]);
     }
 
+    /**
+     * Return courses stored inside colleges.course_details.
+     */
     public function apiCourses($id)
     {
         $college = College::find($id);
 
         if (!$college) {
-            return response()->json(['message' => 'College not found'], 404);
+            return response()->json([
+                'message' => 'College not found'
+            ], 404);
         }
 
         return response()->json([
             'message' => 'College courses fetched successfully',
-            'data' => $college->courses()->orderBy('name')->get(),
+            'data' => $college->course_details ?? [],
         ]);
     }
 
     /**
-     * Store a newly created college in storage.
+     * Store a newly created college.
      */
     public function store(Request $request)
     {
@@ -65,14 +68,21 @@ class CollegeController extends Controller
             'description' => 'nullable|string',
             'logo' => 'nullable|string|max:255',
             'website' => 'nullable|url|max:255',
-            'hostel_facilities' => 'nullable|string|max:2000',
-            'hostel_fee' => 'nullable|numeric|min:0|max:99999999.99',
-            'facilities' => 'nullable|string|max:4000',
+
+            // College information
             'stream' => 'nullable|string|max:255',
             'degree' => 'nullable|string|max:255',
             'study_mode' => 'nullable|string|max:255',
             'specialization' => 'nullable|string|max:255',
             'exam' => 'nullable|string|max:255',
+
+            // Hostel and facilities
+            'hostel_facilities' => 'nullable|string|max:2000',
+            'hostel_fee' => 'nullable|numeric|min:0|max:99999999.99',
+            'facilities' => 'nullable|string|max:4000',
+
+            // Course information stored as JSON
+            'course_details' => 'nullable|array',
         ], [
             'name.required' => 'Please enter the college name.',
             'city.required' => 'Please enter the city.',
@@ -92,7 +102,8 @@ class CollegeController extends Controller
             ], 201);
         }
 
-        return redirect('/colleges')->with('success', 'College created successfully');
+        return redirect('/colleges')
+            ->with('success', 'College created successfully');
     }
 
     /**
@@ -109,9 +120,21 @@ class CollegeController extends Controller
         }
 
         if (!$request->expectsJson() && !$request->ajax()) {
-            $menuColleges = College::orderBy('id', 'desc')->limit(14)->get(['id', 'name', 'established_year']);
 
-            return view('colleges.show', compact('college', 'menuColleges') + ['collegeId' => $college->id]);
+            $menuColleges = College::orderBy('id', 'desc')
+                ->limit(14)
+                ->get([
+                    'id',
+                    'name',
+                    'established_year'
+                ]);
+
+            return view(
+                'colleges.show',
+                compact('college', 'menuColleges') + [
+                    'collegeId' => $college->id
+                ]
+            );
         }
 
         return response()->json([
@@ -121,7 +144,7 @@ class CollegeController extends Controller
     }
 
     /**
-     * Update the specified college in storage.
+     * Update an existing college.
      */
     public function update(Request $request, $id)
     {
@@ -133,7 +156,9 @@ class CollegeController extends Controller
                     'message' => 'College not found'
                 ], 404);
             }
-            return redirect('/colleges')->with('error', 'College not found');
+
+            return redirect('/colleges')
+                ->with('error', 'College not found');
         }
 
         $validated = $request->validate([
@@ -145,9 +170,21 @@ class CollegeController extends Controller
             'description' => 'nullable|string',
             'logo' => 'nullable|string|max:255',
             'website' => 'nullable|url|max:255',
+
+            // College information
+            'stream' => 'nullable|string|max:255',
+            'degree' => 'nullable|string|max:255',
+            'study_mode' => 'nullable|string|max:255',
+            'specialization' => 'nullable|string|max:255',
+            'exam' => 'nullable|string|max:255',
+
+            // Hostel and facilities
             'hostel_facilities' => 'nullable|string|max:2000',
             'hostel_fee' => 'nullable|numeric|min:0|max:99999999.99',
             'facilities' => 'nullable|string|max:4000',
+
+            // Course information
+            'course_details' => 'nullable|array',
         ], [
             'name.required' => 'Please enter the college name.',
             'city.required' => 'Please enter the city.',
@@ -167,11 +204,12 @@ class CollegeController extends Controller
             ]);
         }
 
-        return redirect('/colleges')->with('success', 'College updated successfully');
+        return redirect('/colleges')
+            ->with('success', 'College updated successfully');
     }
 
     /**
-     * Remove the specified college from storage.
+     * Delete a college.
      */
     public function destroy(Request $request, $id)
     {
@@ -183,7 +221,9 @@ class CollegeController extends Controller
                     'message' => 'College not found'
                 ], 404);
             }
-            return redirect('/colleges')->with('error', 'College not found');
+
+            return redirect('/colleges')
+                ->with('error', 'College not found');
         }
 
         $college->delete();
@@ -194,6 +234,7 @@ class CollegeController extends Controller
             ]);
         }
 
-        return redirect('/colleges')->with('success', 'College deleted successfully');
+        return redirect('/colleges')
+            ->with('success', 'College deleted successfully');
     }
 }

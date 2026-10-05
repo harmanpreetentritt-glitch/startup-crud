@@ -16,29 +16,34 @@ class CourseController extends Controller
     }
 
     public function storeForCollege(Request $request, $collegeId)
-    {
-        $college = College::findOrFail($collegeId);
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'duration' => 'required|string|max:100',
-            'eligibility' => 'nullable|string|max:5000',
-            'stream' => 'nullable|string|max:255',
-            'exam' => 'nullable|string|max:255',
-            'study_mode' => 'nullable|string|max:50',
-            'specialization' => 'nullable|string|max:255',
-        ]);
-        $college->update([
-            'stream' => $request->input('stream'),
-            'study_mode' => $request->input('study_mode'),
-            'specialization' => $request->input('specialization'),
-            'exam' => $request->input('exam'),
-        ]);
-        $college->courses()->create($validated);
+{
+    $college = College::findOrFail($collegeId);
 
-        return redirect("/colleges/{$college->id}#college-courses")
-            ->with('success', 'Course added to ' . $college->name . '.');
-    }
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'duration' => 'required|string|max:100',
+        'eligibility' => 'nullable|string|max:5000',
+        'stream' => 'nullable|string|max:255',
+        'degree' => 'nullable|string|max:255',
+        'study_mode' => 'nullable|string|max:255',
+        'specialization' => 'nullable|string|max:255',
+        'exam' => 'nullable|string|max:255',
+    ]);
 
+    // Get existing courses from colleges table
+    $courses = $college->course_details ?? [];
+
+    // Add the new course
+    $courses[] = $validated;
+
+    // Save course inside colleges table
+    $college->update([
+        'course_details' => $courses,
+    ]);
+
+    return redirect("/colleges/{$college->id}#college-courses")
+        ->with('success', 'Course added to ' . $college->name . '.');
+}
     public function index()
     {
         $courses = Course::all();

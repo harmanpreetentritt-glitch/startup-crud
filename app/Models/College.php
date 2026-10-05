@@ -11,24 +11,29 @@ class College extends Model
 
     protected $table = 'colleges';
 
-    protected $fillable = [
-        'name',
-        'city',
-        'state',
-        'type',
-        'established_year',
-        'description',
-        'logo',
-        'website',
-        'hostel_facilities',
-        'hostel_fee',
-        'facilities',
-        'stream',
-        'degree',
-        'study_mode',
-        'specialization',
-        'exam',
-    ];
+ protected $fillable = [
+    'name',
+    'city',
+    'state',
+    'type',
+    'established_year',
+    'description',
+    'logo',
+    'website',
+    // 'stream',
+    // 'degree',
+    // 'study_mode',
+    // 'specialization',
+    // 'exam',
+    'hostel_facilities',
+    'hostel_fee',
+    'facilities',
+    'course_details',
+];
+
+protected $casts = [
+    'course_details' => 'array',
+];
 
     public function courses()
     {

@@ -142,6 +142,29 @@ function escapeHtml(value) {
     }[character]));
 }
 
+function getCourseDetails(college) {
+    if (!college.course_details) {
+        return [];
+    }
+
+    if (Array.isArray(college.course_details)) {
+        return college.course_details;
+    }
+
+    if (typeof college.course_details === 'string') {
+        try {
+            const parsed = JSON.parse(college.course_details);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            console.error('Invalid course_details JSON:', error);
+            return [];
+        }
+    }
+
+    return [];
+}
+
+
 function fieldValues(college, fields) {
     return fields.flatMap((field) => {
         const value = college[field];
@@ -187,20 +210,45 @@ function degreeKeys(value) {
 
 function collegeFilterValues(college, definition) {
     const values = fieldValues(college, definition.fields).flatMap(splitFilterValues);
-    const courses = college.courses || [];
+
+    const courses = getCourseDetails(college);
+
+    if (definition.key === 'stream') {
+        courses.forEach((course) => {
+            values.push(...splitFilterValues(course.stream));
+        });
+    }
 
     if (definition.key === 'degree') {
         courses.forEach((course) => {
             const explicitDegrees = splitFilterValues(course.degree);
             const inferredDegrees = degreeKeys(course.name);
-            values.push(...explicitDegrees, ...(inferredDegrees.length ? inferredDegrees : splitFilterValues(course.name)));
+
+            values.push(
+                ...explicitDegrees,
+                ...(inferredDegrees.length
+                    ? inferredDegrees
+                    : splitFilterValues(course.name))
+            );
         });
-    } else if (definition.key === 'study_mode') {
-        courses.forEach((course) => values.push(...splitFilterValues(course.study_mode)));
-    } else if (definition.key === 'specialization') {
-        courses.forEach((course) => values.push(...splitFilterValues(course.specialization)));
-    } else if (definition.key === 'exam') {
-        courses.forEach((course) => values.push(...splitFilterValues(course.exam_required)));
+    }
+
+    if (definition.key === 'study_mode') {
+        courses.forEach((course) => {
+            values.push(...splitFilterValues(course.study_mode));
+        });
+    }
+
+    if (definition.key === 'specialization') {
+        courses.forEach((course) => {
+            values.push(...splitFilterValues(course.specialization));
+        });
+    }
+
+    if (definition.key === 'exam') {
+        courses.forEach((course) => {
+            values.push(...splitFilterValues(course.exam));
+        });
     }
 
     return [...new Set(values)];
@@ -247,32 +295,157 @@ function filterValueMatches(definition, actual, selected) {
 }
 
 function collegeMatchesStream(college, stream) {
+
     const normalizedStream = normalizeFilterValue(stream);
+
     const collegeStreams = fieldValues(college, ['stream', 'streams']);
-    const courseDetails = (college.courses || []).flatMap((course) =>
-        [course.name, course.degree, course.specialization].filter(Boolean)
+
+    const courses = getCourseDetails(college);
+
+    // Check the actual stream stored inside course_details
+    const courseStreams = courses.flatMap((course) =>
+        splitFilterValues(course.stream)
     );
+
+    if (
+        courseStreams.some(
+            (value) =>
+                normalizeFilterValue(value) === normalizedStream
+        )
+    ) {
+        return true;
+    }
+
+    // Keep the existing fallback logic
+    const courseDetails = courses.flatMap((course) =>
+        [
+            course.name,
+            course.degree,
+            course.specialization
+        ].filter(Boolean)
+    );
+
     const streamCourseTerms = {
-        engineering: ['engineering', 'btech', 'mtech', 'bachelorofengineering', 'masterofengineering', 'bacheloroftechnology', 'masteroftechnology'],
-        management: ['management', 'mba', 'bba', 'businessadministration', 'bms'],
-        commercebanking: ['commerce', 'banking', 'bcom', 'accountancy'],
-        medical: ['medical', 'medicine', 'mbbs', 'bds', 'bpharm', 'pharmacy', 'nursing'],
-        science: ['science', 'bsc', 'msc', 'radiotherapy', 'statistics'],
-        hotelmanagement: ['hotelmanagement', 'hospitality'],
-        informationtechnology: ['informationtechnology', 'computerapplication', 'bca', 'software'],
-        law: ['law', 'llb', 'clat'],
-        agriculture: ['agriculture', 'bscagriculture'],
-        design: ['design', 'bdes', 'fashiondesign'],
-        education: ['education', 'bed', 'teaching'],
-        masscommunication: ['masscommunication', 'journalism', 'communication'],
-        artsandhumanities: ['arts', 'humanities', 'liberalarts'],
-        nursing: ['nursing'],
-        dental: ['dental', 'bds', 'dentistry'],
-        performingarts: ['performingarts', 'theatre', 'music'],
+
+        engineering: [
+            'engineering',
+            'btech',
+            'mtech',
+            'bachelorofengineering',
+            'masterofengineering',
+            'bacheloroftechnology',
+            'masteroftechnology'
+        ],
+
+        management: [
+            'management',
+            'mba',
+            'bba',
+            'businessadministration',
+            'bms'
+        ],
+
+        commercebanking: [
+            'commerce',
+            'banking',
+            'bcom',
+            'accountancy'
+        ],
+
+        medical: [
+            'medical',
+            'medicine',
+            'mbbs',
+            'bds',
+            'bpharm',
+            'pharmacy',
+            'nursing'
+        ],
+
+        science: [
+            'science',
+            'bsc',
+            'msc',
+            'radiotherapy',
+            'statistics'
+        ],
+
+        hotelmanagement: [
+            'hotelmanagement',
+            'hospitality'
+        ],
+
+        informationtechnology: [
+            'informationtechnology',
+            'computerapplication',
+            'bca',
+            'software'
+        ],
+
+        law: [
+            'law',
+            'llb',
+            'clat'
+        ],
+
+        agriculture: [
+            'agriculture',
+            'bscagriculture'
+        ],
+
+        design: [
+            'design',
+            'bdes',
+            'fashiondesign'
+        ],
+
+        education: [
+            'education',
+            'bed',
+            'teaching'
+        ],
+
+        masscommunication: [
+            'masscommunication',
+            'journalism',
+            'communication'
+        ],
+
+        artsandhumanities: [
+            'arts',
+            'humanities',
+            'liberalarts'
+        ],
+
+        nursing: [
+            'nursing'
+        ],
+
+        dental: [
+            'dental',
+            'bds',
+            'dentistry'
+        ],
+
+        performingarts: [
+            'performingarts',
+            'theatre',
+            'music'
+        ]
+
     }[normalizedStream] || [normalizedStream];
 
-    return collegeStreams.some((value) => normalizeFilterValue(value) === normalizedStream)
-        || courseDetails.some((detail) => streamCourseTerms.some((term) => normalizeFilterValue(detail).includes(term)));
+    return (
+        collegeStreams.some(
+            (value) =>
+                normalizeFilterValue(value) === normalizedStream
+        ) ||
+        courseDetails.some((detail) =>
+            streamCourseTerms.some((term) =>
+                normalizeFilterValue(detail).includes(term)
+            )
+        )
+    );
 }
 
 const hostelFeeRanges = [
@@ -359,11 +532,13 @@ function renderFilters() {
 
 function collegeMatchesFilters(college) {
     if (quickSearchQuery) {
-        const courseNames = (college.courses || [])
+        const courseNames = getCourseDetails(college)
             .flatMap((course) => [
                 course.name,
                 course.degree,
-                course.specialization
+                course.specialization,
+                course.stream,
+                course.exam
             ])
             .filter(Boolean);
 
@@ -470,14 +645,6 @@ document.querySelector('#chips').addEventListener('click', (event) => {
     showColleges();
 });
 
- 
-// const quickSearchInput = document.querySelector('#quickSearchInput');
-// quickSearchInput?.addEventListener('input', () => {
-//     quickSearchQuery = quickSearchInput.value.trim();
-//     showColleges();
-// });
-
-
 const quickSearchInput = document.querySelector('#quickSearchInput');
 
 console.log('SEARCH INPUT FOUND:', quickSearchInput);
@@ -486,7 +653,7 @@ quickSearchInput?.addEventListener('input', () => {
     quickSearchQuery = quickSearchInput.value.trim();
 
     console.log('SEARCH TYPED:', quickSearchQuery);
-    console.log('COURSES:', colleges[0]?.courses);
+    console.log('COURSES:', colleges[0]?.course_details);
 
     showColleges();
 });
@@ -614,11 +781,13 @@ window.addEventListener('keydown', (event) => {
 searchInput?.addEventListener('input', () => {
     const query = searchInput.value.trim().toLocaleLowerCase();
     const matches = colleges.filter((college) => {
-        const courseNames = (college.courses || [])
+        const courseNames = getCourseDetails(college)
             .flatMap((course) => [
                 course.name,
                 course.degree,
-                course.specialization
+                course.specialization,
+                course.stream,
+                course.exam
             ])
             .filter(Boolean);
 
@@ -656,3 +825,61 @@ spInput.addEventListener('input', function () {
     }
 });
 loadColleges();
+
+/* ==================== MOBILE FILTER SIDEBAR ==================== */
+
+const mobileFilterToggle = document.getElementById('mobileFilterToggle');
+const filtersPanel = document.querySelector('.filters');
+
+if (mobileFilterToggle && filtersPanel) {
+
+    // Create overlay
+    const filterOverlay = document.createElement('div');
+    filterOverlay.className = 'filter-overlay';
+    document.body.appendChild(filterOverlay);
+
+    // Create sidebar heading + close button
+    const filterHeader = document.createElement('div');
+    filterHeader.className = 'filter-sidebar-close';
+
+    filterHeader.innerHTML = `
+        <span>Filters</span>
+        <button type="button" aria-label="Close filters">×</button>
+    `;
+
+    filtersPanel.prepend(filterHeader);
+
+    const filterCloseButton = filterHeader.querySelector('button');
+
+    function openFilters() {
+        filtersPanel.classList.add('filter-open');
+        filterOverlay.classList.add('active');
+        document.body.classList.add('filters-locked');
+    }
+
+    function closeFilters() {
+        filtersPanel.classList.remove('filter-open');
+        filterOverlay.classList.remove('active');
+        document.body.classList.remove('filters-locked');
+    }
+
+    mobileFilterToggle.addEventListener('click', openFilters);
+
+    filterCloseButton.addEventListener('click', closeFilters);
+
+    filterOverlay.addEventListener('click', closeFilters);
+
+    // Close with Escape
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeFilters();
+        }
+    });
+
+    // If screen becomes desktop size, reset mobile sidebar state
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+            closeFilters();
+        }
+    });
+}

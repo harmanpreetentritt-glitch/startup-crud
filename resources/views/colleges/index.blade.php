@@ -18,6 +18,9 @@
     <div class="container">
 
       <div class="mainnav">
+        <button type="button" class="mobile-filter-toggle" id="mobileFilterToggle" aria-label="Open filters">
+          ☰
+        </button>
         <a href="{{ url('/colleges') }}" class="logo">Campus<span>Path</span></a>
         <ul class="menu">
           <li class="colleges-menu-item">
@@ -52,7 +55,8 @@
           </li>
           <li class="account-icon">
             <a href="{{ route('auth.login') }}" title="Log in" aria-label="Log in">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 21a8 8 0 0 1 16 0" />
               </svg>
@@ -68,6 +72,7 @@
   <!-- MAIN -->
   <main class="container">
 
+    <div class="layout"></div>
     <div class="layout">
       <aside class="filters" id="filters"></aside>
 
@@ -87,7 +92,7 @@
             <input type="search" id="quickSearchInput" placeholder="Quick search by name or city...">
           </div>
         </div>
-  <!-- Search Chips -->
+        <!-- Search Chips -->
         <div class="chips" id="chips"></div>
         <h2 class="count" id="count"></h2>
         <a class="add-college-link" href="{{ url('/colleges/create') }}">+ Add a college</a>

@@ -450,11 +450,49 @@ async function loadCollegeDetails() {
             logo.textContent = initial;
         }
 
-        /* HOSTEL + FACILITIES */
-        setText('#hostelFacilities', college.hostel_facilities);
-        setText('#hostelFee', formatMoney(college.hostel_fee));
-        renderFacilities(college.facilities);
+     /* HOSTEL + FACILITIES */
 
+const hostelFacilities = document.querySelector('#hostelFacilities');
+const hostelFee = document.querySelector('#hostelFee');
+const collegeFacilities = document.querySelector('#collegeFacilities');
+
+console.log('College hostel/facility data:', {
+    hostel_facilities: college.hostel_facilities,
+    hostel_fee: college.hostel_fee,
+    facilities: college.facilities
+});
+
+/* Hostel Facilities */
+if (hostelFacilities) {
+    hostelFacilities.textContent =
+        college.hostel_facilities?.trim() || 'Not provided';
+}
+
+/* Hostel Fee */
+if (hostelFee) {
+    hostelFee.textContent =
+        college.hostel_fee !== null &&
+        college.hostel_fee !== undefined &&
+        college.hostel_fee !== ''
+            ? formatMoney(college.hostel_fee)
+            : 'Not provided';
+}
+
+/* Campus Facilities */
+if (collegeFacilities) {
+    const facilities = splitValues(college.facilities);
+
+    if (facilities.length) {
+        collegeFacilities.innerHTML = facilities
+            .map(facility =>
+                `<span class="facility-tag">${escapeHtml(facility)}</span>`
+            )
+            .join('');
+    } else {
+        collegeFacilities.innerHTML =
+            '<span class="facility-empty">Not provided</span>';
+    }
+}
         /* ACTION LINKS */
         document.querySelector('#editCollege').href =
             `/colleges/${encodeURIComponent(college.id)}/edit`;
