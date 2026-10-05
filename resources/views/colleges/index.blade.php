@@ -12,12 +12,14 @@
 </head>
 
 <body>
-  <!--VIEW COLLEGE-->
+<!-- MAIN PAGE -->
+
   <!-- HEADER -->
   <header class="site-header">
     <div class="container">
 
       <div class="mainnav">
+        <!-- Toggle Button -->
         <button type="button" class="mobile-filter-toggle" id="mobileFilterToggle" aria-label="Open filters">
           ☰
         </button>
