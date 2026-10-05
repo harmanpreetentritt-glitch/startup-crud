@@ -1849,7 +1849,9 @@ a {
 #spInput::focus {
     visibility: hidden;
 }
-
+#filterToggle {
+    display: none;
+}
 /* ==================== TABLET & MOBILE FILTER SIDEBAR ==================== */
 
 /* Hidden on desktop */
@@ -1859,6 +1861,9 @@ a {
 
 @media (max-width: 900px) {
     /* Filter button */
+    #filterToggle {
+        display: block;
+    }
     .mobile-filter-toggle {
         display: inline-flex;
         align-items: center;
