@@ -7,23 +7,27 @@ use Illuminate\Http\Request;
 
 class CollegeController extends Controller
 {
-    /**
-     * Display colleges page or return JSON if requested.
-     */
-    public function index(Request $request)
-    {
-        if ($request->expectsJson() || $request->ajax()) {
-            return $this->apiIndex();
-        }
-
-        $colleges = College::orderBy('id', 'desc')->get();
-        $menuColleges = $colleges->take(14);
-
-        return view('colleges.index', compact('colleges', 'menuColleges'));
+    
+/**
+ * Display colleges page or return JSON if requested.
+ */
+public function index(Request $request)
+{
+    if ($request->expectsJson() || $request->ajax()) {
+        return $this->apiIndex();
     }
 
+    $colleges = College::orderBy('id', 'desc')->paginate(10);
+
+    $menuColleges = College::orderBy('id', 'desc')
+        ->limit(14)
+        ->get();
+
+    return view('colleges.index', compact('colleges', 'menuColleges'));
+}
+
     /**
-     * Return all colleges as JSON.
+     * Return all colleges as JSON.S
      */
     public function apiIndex()
     {

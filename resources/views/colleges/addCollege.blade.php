@@ -1,76 +1,116 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@extends('collegeListLayout.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'Add a College | CampusPath')
+
+@section('body_attributes')
+    data-college-id="{{ $collegeId ?? '' }}"
+@endsection
+
+@push('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Add a College | CampusPath</title>
+@endpush
+
+@push('styles')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    @vite(['resources/css/college-form.css', 'resources/js/college-form.js'])
-</head>
+    @vite('resources/css/college-form.css')
+@endpush
 
-<body data-college-id="{{ $collegeId ?? '' }}">
-    <!-- ADD COLLEGE -->
-    <header class="form-header">
-        <a class="brand" href="/colleges">Campus<span>Path</span></a>
-
-        <div class="header-actions">
-            <a class="back-link" href="/colleges">&#8592; Back to colleges</a>
-
-            <a class="account-icon" href="{{ route('auth.login') }}" title="Log in" aria-label="Log in">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <circle cx="12" cy="8" r="4" />
-                    <path d="M4 21a8 8 0 0 1 16 0" />
-                </svg>
-            </a>
-        </div>
-    </header>
+@push('scripts')
+    @vite('resources/js/college-form.js')
+@endpush
     <main class="form-page">
         <section class="form-card">
             <aside class="form-side">
                 <div class="side-mark" aria-hidden="true">CP</div>
+
                 <p class="side-kicker">CAMPUSPATH DIRECTORY</p>
+
                 <h2 id="sideTitle">Every great campus has a story.</h2>
-                <p id="sideDescription">Add a college to help students discover where their next chapter could begin.
+
+                <p id="sideDescription">
+                    Add a college to help students discover where their next chapter could begin.
                 </p>
-                <div class="side-note"><span aria-hidden="true">&#10022;</span> Share accurate, up-to-date details</div>
+
+                <div class="side-note">
+                    <span aria-hidden="true">&#10022;</span>
+                    Share accurate, up-to-date details
+                </div>
             </aside>
 
             <div class="form-content">
                 <div class="form-heading">
                     <p class="eyebrow" id="formEyebrow">COLLEGE DETAILS</p>
+
                     <h1 id="formTitle">Add a college</h1>
-                    <p>Fill in the information below. Fields marked <span class="required-mark">*</span> are required.
+
+                    <p>
+                        Fill in the information below.
+                        Fields marked <span class="required-mark">*</span> are required.
                     </p>
                 </div>
 
-                <div id="formMessage" class="form-message" role="status" aria-live="polite" hidden></div>
+                <div
+                    id="formMessage"
+                    class="form-message"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                ></div>
 
                 <form id="collegeForm">
                     <div class="field-grid">
                         <div class="field field-wide">
-                            <label for="name">College name <span>*</span></label>
-                            <input id="name" name="name" type="text" maxlength="255" required
-                                autocomplete="organization" placeholder="e.g. Example University">
+                            <label for="name">
+                                College name <span>*</span>
+                            </label>
+
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                maxlength="255"
+                                required
+                                autocomplete="organization"
+                                placeholder="e.g. Example University"
+                            >
                         </div>
 
                         <div class="field">
-                            <label for="city">City <span>*</span></label>
-                            <input id="city" name="city" type="text" maxlength="100" required
-                                autocomplete="address-level2" placeholder="e.g. Pune">
+                            <label for="city">
+                                City <span>*</span>
+                            </label>
+
+                            <input
+                                id="city"
+                                name="city"
+                                type="text"
+                                maxlength="100"
+                                required
+                                autocomplete="address-level2"
+                                placeholder="e.g. Pune"
+                            >
                         </div>
 
                         <div class="field">
-                            <label for="state">State <span>*</span></label>
-                            <input id="state" name="state" type="text" maxlength="100" required
-                                autocomplete="address-level1" placeholder="e.g. Maharashtra">
+                            <label for="state">
+                                State <span>*</span>
+                            </label>
+
+                            <input
+                                id="state"
+                                name="state"
+                                type="text"
+                                maxlength="100"
+                                required
+                                autocomplete="address-level1"
+                                placeholder="e.g. Maharashtra"
+                            >
                         </div>
 
                         <div class="field">
                             <label for="type">Institute type</label>
+
                             <select id="type" name="type">
                                 <option value="">Select type</option>
                                 <option value="Public">Public</option>
@@ -82,59 +122,111 @@
 
                         <div class="field">
                             <label for="established_year">Established year</label>
-                            <input id="established_year" name="established_year" type="number" min="1800"
-                                max="{{ date('Y') }}" step="1" placeholder="e.g. 1995">
+
+                            <input
+                                id="established_year"
+                                name="established_year"
+                                type="number"
+                                min="1800"
+                                max="{{ date('Y') }}"
+                                step="1"
+                                placeholder="e.g. 1995"
+                            >
                         </div>
 
                         <div class="field">
                             <label for="hostel_facilities">Hostel facilities</label>
-                            <input id="hostel_facilities" name="hostel_facilities" type="text" maxlength="2000"
-                                placeholder="Boys Hostel, Girls Hostel">
+
+                            <input
+                                id="hostel_facilities"
+                                name="hostel_facilities"
+                                type="text"
+                                maxlength="2000"
+                                placeholder="Boys Hostel, Girls Hostel"
+                            >
+
                             <small>Separate multiple facilities with commas.</small>
                         </div>
 
                         <div class="field">
                             <label for="hostel_fee">Annual hostel fee</label>
-                            <input id="hostel_fee" name="hostel_fee" type="number" min="0" step="0.01"
-                                placeholder="e.g. 85000">
+
+                            <input
+                                id="hostel_fee"
+                                name="hostel_fee"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="e.g. 85000"
+                            >
                         </div>
 
                         <div class="field field-wide">
                             <label for="facilities">Campus facilities</label>
-                            <input id="facilities" name="facilities" type="text" maxlength="4000"
-                                placeholder="Library, Laboratories, Sports Facilities">
+
+                            <input
+                                id="facilities"
+                                name="facilities"
+                                type="text"
+                                maxlength="4000"
+                                placeholder="Library, Laboratories, Sports Facilities"
+                            >
+
                             <small>Separate multiple facilities with commas.</small>
                         </div>
 
                         <div class="field field-wide">
                             <label for="website">Website</label>
-                            <input id="website" name="website" type="url" maxlength="255"
-                                placeholder="https://www.example.edu">
+
+                            <input
+                                id="website"
+                                name="website"
+                                type="url"
+                                maxlength="255"
+                                placeholder="https://www.example.edu"
+                            >
                         </div>
 
                         <div class="field field-wide">
                             <label for="logo">Logo image URL</label>
-                            <input id="logo" name="logo" type="url" maxlength="255"
-                                placeholder="https://www.example.edu/logo.png">
-                            <small>Paste a public image URL. Image file uploads are not enabled yet.</small>
+
+                            <input
+                                id="logo"
+                                name="logo"
+                                type="url"
+                                maxlength="255"
+                                placeholder="https://www.example.edu/logo.png"
+                            >
+
+                            <small>
+                                Paste a public image URL. Image file uploads are not enabled yet.
+                            </small>
                         </div>
 
                         <div class="field field-wide">
                             <label for="description">Description</label>
-                            <textarea id="description" name="description" rows="5"
-                                placeholder="A short introduction to the college"></textarea>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="5"
+                                placeholder="A short introduction to the college"
+                            ></textarea>
                         </div>
                     </div>
 
                     <div class="form-actions">
-                        <a class="cancel-button" href="/colleges">Cancel</a>
-                        <button id="submitButton" type="submit"><span id="submitLabel">Add college</span><span
-                                aria-hidden="true">&#8594;</span></button>
+                        <a class="cancel-button" href="{{ url('/colleges') }}">
+                            Cancel
+                        </a>
+
+                        <button id="submitButton" type="submit">
+                            <span id="submitLabel">Add college</span>
+                            <span aria-hidden="true">&#8594;</span>
+                        </button>
                     </div>
                 </form>
             </div>
         </section>
     </main>
-</body>
-
-</html>
+@endsection
