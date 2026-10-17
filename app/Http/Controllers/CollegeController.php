@@ -237,4 +237,8 @@ class CollegeController extends Controller
         return redirect('/colleges')
             ->with('success', 'College deleted successfully');
     }
+    public function layout()
+{
+    return view('collegelistlayout.layout');
+}
 }

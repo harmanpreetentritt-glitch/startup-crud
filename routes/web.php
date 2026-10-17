@@ -141,3 +141,5 @@ Route::get('/colleges/{id}', [CollegeController::class, 'show']);
 Route::put('/colleges/{id}', [CollegeController::class, 'update']);
 Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
 Route::get('/api/colleges', [CollegeController::class, 'apiIndex']);
+Route::get('/layout', [CollegeController::class, 'layout'])
+    ->name('collegelistlayout.layout');

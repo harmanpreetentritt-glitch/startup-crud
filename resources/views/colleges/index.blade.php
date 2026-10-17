@@ -20,7 +20,7 @@
 
       <div class="mainnav">
         <!-- Toggle Button -->
-        <button type="button" class="mobile-filter-toggle" id="mobileFilterToggle" aria-label="Open filters">
+        <button type="button" class="mobile-filter-toggle" id="mobileFilterToggle" aria-label="Open filters" style="display: none;">
           ☰
         </button>
         <a href="{{ url('/colleges') }}" class="logo">Campus<span>Path</span></a>
@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="account-icon">
-            <a href="{{ route('auth.login') }}" title="Log in" aria-label="Log in">
+            <a href="{{ route('auth.login') }}" title="Log in" aria-label="Log in" style="text-decoration: none; color: #fff;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="8" r="4" />
@@ -67,7 +67,7 @@
         </ul>
       </div>
 
-      <div class="crumb"><b>Colleges in India 2026</b></div>
+      <!-- <div class="crumb"><b>Colleges in India 2026</b></div> -->
     </div>
   </header>
 
