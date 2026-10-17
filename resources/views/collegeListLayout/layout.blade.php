@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- The header styles -->
-    <link rel="stylesheet" href="header.css">
+    <!-- <link rel="stylesheet" href="header.css"> -->
 
     <style>
         body {
@@ -304,7 +304,7 @@
 </head>
 </head>
 
-<body>
+<body @yield('body_attributes')>
 
     <!-- HEADER -->
     <header class="site-header">
