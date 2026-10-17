@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- The header styles -->
-    <link rel="stylesheet" href="header.css">
 
     <style>
         body { 
@@ -299,6 +297,8 @@
 
 
  </style>
+     @stack('meta')
+    @stack('styles')
 </head>
 
 <body>
@@ -327,11 +327,10 @@
     </header>
 
 
-    <!-- Main -->
+<!-- Main Content -->
 <main>
-    <div style="height: 1200px;"></div>
+    @yield('content')
 </main>
-
 
     <!-- Footer -->
 
@@ -393,7 +392,6 @@
     </div>
 </footer>
 
-
+    @stack('scripts')
 </body>
-
 </html>
