@@ -299,6 +299,9 @@
 
 
  </style>
+     @stack('meta')
+    @stack('styles')
+</head>
 </head>
 
 <body>
@@ -327,11 +330,10 @@
     </header>
 
 
-    <!-- Main -->
+   <!-- Main Content -->
 <main>
-    <div style="height: 1200px;"></div>
+    @yield('content')
 </main>
-
 
     <!-- Footer -->
     <footer class="site-footer">
@@ -391,7 +393,6 @@
 
     </div>
 </footer>
-
-
+    @stack('scripts')
 </body>
 </html>
