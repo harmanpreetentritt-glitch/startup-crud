@@ -19,9 +19,6 @@
 @push('scripts')
     @vite('resources/js/college-form.js')
 @endpush
-
-
-@section('content')
     <main class="form-page">
         <section class="form-card">
             <aside class="form-side">
@@ -250,4 +247,5 @@
             </div>
         </section>
     </main>
+
 @endsection

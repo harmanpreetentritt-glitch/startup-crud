@@ -2025,3 +2025,32 @@ a {
         margin-left: auto;
     }
 }
+/* Pagination */
+
+ .pagination{
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .pagination li a{
+        border: 1px solid gray;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .pagination li.active a{
+        background: #3b95ff;
+        border-color: #3b95ff;
+        color: #fff;
+    }
+
+    .pagination li.disabled a{
+        color: #aaa;
+        border-color: #ddd;
+        pointer-events: none;
+    }

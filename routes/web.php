@@ -145,6 +145,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/colleges/{id}', [CollegeController::class, 'update']);
     Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
 
+
     // The colleges page loads its data from here, so it must be protected too
     Route::get('/api/colleges', [CollegeController::class, 'apiIndex']);
 });
