@@ -4,15 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusFinder</title>
+    @stack('meta')
+    <title>@yield('title', 'CampusPath - Top Colleges in India')</title>
 
-    <!-- Same font and icons as your admin layout.
-         If your layout already loads these, you do not need these two lines. -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- The header styles -->
-    <!-- <link rel="stylesheet" href="header.css"> -->
+    @stack('styles')
 
     <style>
         body {
@@ -295,6 +293,53 @@
     color: var(--primary-dark);
 }
 
+button.site-user {
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.site-account { position: relative; }
+
+.account-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    min-width: 230px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+    padding: 8px;
+    z-index: 1000;
+}
+.account-dropdown[hidden] { display: none; }
+
+.account-dropdown__info {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 10px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 6px;
+    color: var(--menu-text);
+}
+.account-dropdown__info span { font-size: 0.8rem; color: #858796; }
+
+.account-dropdown a,
+.account-dropdown button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 9px 10px;
+    border: 0;
+    background: none;
+    border-radius: 6px;
+    color: var(--menu-text);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.account-dropdown a:hover,
+.account-dropdown button:hover { background: #eef2f9; }
 
 
 
@@ -323,7 +368,34 @@
                     <input type="search" name="q" placeholder="Search colleges, courses, exams"
                         aria-label="Search colleges, courses or exams">
                 </form>
-                <a class="site-user" href="#" aria-label="My account"><i class="fas fa-user"></i></a>
+                @guest
+    <a class="site-user" href="{{ route('auth.login') }}" aria-label="Log in">
+        <i class="fas fa-user"></i>
+    </a>
+@endguest
+
+@auth
+    <div class="site-account">
+        <button type="button" class="site-user" id="accountBtn"
+                aria-label="Open profile menu" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i>
+        </button>
+
+        <div class="account-dropdown" id="accountDropdown" hidden>
+            <div class="account-dropdown__info">
+                <strong>{{ Auth::user()->name }}</strong>
+                <span>{{ Auth::user()->email }}</span>
+            </div>
+
+            <a href="{{ url('/profile') }}">My Profile</a>
+
+            <form method="POST" action="{{ url('/logout') }}">
+                @csrf
+                <a href="{{ url('/logout') }}">Log out</a>
+            </form>
+        </div>
+    </div>
+@endauth
             </div>
 
         </div>
@@ -393,6 +465,32 @@
 
     </div>
 </footer>
+<script>
+    (function () {
+        const btn  = document.getElementById('accountBtn');
+        const menu = document.getElementById('accountDropdown');
+        if (!btn || !menu) return; // guest: nothing to wire up
+
+        const close = () => {
+            menu.hidden = true;
+            btn.setAttribute('aria-expanded', 'false');
+        };
+
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.hidden = !menu.hidden;
+            btn.setAttribute('aria-expanded', String(!menu.hidden));
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target)) close();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') close();
+        });
+    })();
+</script>
     @stack('scripts')
 </body>
 </html>

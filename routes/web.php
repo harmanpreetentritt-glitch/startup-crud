@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CollegeController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +104,7 @@ Route::get('/session/update', [CartController::class, 'updateSession'])
 Route::get('/session/delete', [CartController::class, 'deleteSession'])
     ->middleware('auth');
 
+Route::middleware('auth')->get('/profile', [ProfileController::class, 'show'])->name('profile');
 
 //  COURSES 
 
@@ -129,17 +131,23 @@ Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
 
 //  COLLEGES 
 
-Route::get('/colleges', [CollegeController::class, 'index']);
-Route::view('/colleges/create', 'colleges.addCollege');
-Route::get('/colleges/{collegeId}/courses/create', [CourseController::class, 'createForCollege']);
-Route::post('/colleges/{collegeId}/courses', [CourseController::class, 'storeForCollege']);
-Route::get('/colleges/{id}/edit', function ($id) {
-    return view('colleges.addCollege', ['collegeId' => $id]);
+Route::middleware('auth')->group(function () {
+
+    Route::get('/colleges', [CollegeController::class, 'index']);
+    Route::view('/colleges/create', 'colleges.addCollege');
+    Route::get('/colleges/{collegeId}/courses/create', [CourseController::class, 'createForCollege']);
+    Route::post('/colleges/{collegeId}/courses', [CourseController::class, 'storeForCollege']);
+    Route::get('/colleges/{id}/edit', function ($id) {
+        return view('colleges.addCollege', ['collegeId' => $id]);
+    });
+    Route::post('/colleges', [CollegeController::class, 'store']);
+    Route::get('/colleges/{id}', [CollegeController::class, 'show']);
+    Route::put('/colleges/{id}', [CollegeController::class, 'update']);
+    Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
+
+    // The colleges page loads its data from here, so it must be protected too
+    Route::get('/api/colleges', [CollegeController::class, 'apiIndex']);
 });
-Route::post('/colleges', [CollegeController::class, 'store']);
-Route::get('/colleges/{id}', [CollegeController::class, 'show']);
-Route::put('/colleges/{id}', [CollegeController::class, 'update']);
-Route::delete('/colleges/{id}', [CollegeController::class, 'destroy']);
-Route::get('/api/colleges', [CollegeController::class, 'apiIndex']);
+
 Route::get('/layout', [CollegeController::class, 'layout'])
     ->name('collegelistlayout.layout');

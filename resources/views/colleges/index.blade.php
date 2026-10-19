@@ -117,11 +117,7 @@
 
 @section('content')
 
-<!-- <main class="container">
 
-    <div class="layout"></div>
-
-    <div class="layout"> -->
       <main class="container">
 
     <div class="layout">
@@ -144,7 +140,7 @@
                     </label>
                 </div>
 
-                <div class="toolbar-search">
+                <div class="toolbar-search" style="display: none;">
                     <svg width="16" height="16"
                          viewBox="0 0 24 24"
                          fill="none"
@@ -255,3 +251,4 @@
     </div>
 </footer>
 @endsection
+ 
