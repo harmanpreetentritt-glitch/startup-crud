@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\CollegeImage;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,4 +40,10 @@ protected $casts = [
     {
         return $this->hasMany(Course::class);
     }
+    
+public function images()
+{
+    return $this->hasMany(CollegeImage::class, 'college_id');
+}
+
 }

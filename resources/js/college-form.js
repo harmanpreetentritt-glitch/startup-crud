@@ -40,6 +40,53 @@ async function loadCollegeForEdit() {
     }
 }
 
+// collegeForm.addEventListener('submit', async (event) => {
+//     event.preventDefault();
+//     formMessage.hidden = true;
+//     submitButton.disabled = true;
+//     submitLabel.textContent = 'Saving…';
+
+//     const formData = new FormData(collegeForm);
+//     const data = Object.fromEntries(formData.entries());
+
+//     Object.keys(data).forEach((key) => {
+//         if (typeof data[key] === 'string') data[key] = data[key].trim();
+//         if (data[key] === '') data[key] = null;
+//     });
+
+//     try {
+//         const response = await fetch(collegeId ? `/api/colleges/${collegeId}` : '/api/colleges', {
+//             method: collegeId ? 'PUT' : 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Accept': 'application/json',
+//                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+//             },
+//             body: JSON.stringify(data),
+//         });
+
+//         const result = await response.json();
+
+//         if (!response.ok) {
+//             const validationErrors = result.errors
+//                 ? Object.values(result.errors).flat().join(' ')
+//                 : result.message || 'Could not save the college. Please check the details and try again.';
+//             throw new Error(validationErrors);
+//         }
+
+//         showFormMessage(collegeId
+//             ? 'College updated successfully. Returning to the college list…'
+//             : 'College added successfully. Returning to the college list…', 'success');
+//         collegeForm.reset();
+//         window.setTimeout(() => { window.location.href = '/colleges'; }, 900);
+//     } catch (error) {
+//         showFormMessage(error.message || 'Unable to save the college. Please try again.', 'error');
+//     } finally {
+//         submitButton.disabled = false;
+//         submitLabel.textContent = collegeId ? 'Save changes' : 'Add college';
+//     }
+// });
+
 collegeForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     formMessage.hidden = true;
@@ -47,23 +94,26 @@ collegeForm.addEventListener('submit', async (event) => {
     submitLabel.textContent = 'Saving…';
 
     const formData = new FormData(collegeForm);
-    const data = Object.fromEntries(formData.entries());
 
-    Object.keys(data).forEach((key) => {
-        if (typeof data[key] === 'string') data[key] = data[key].trim();
-        if (data[key] === '') data[key] = null;
-    });
+    // Remove empty text values, but preserve uploaded files.
+    for (const [key, value] of [...formData.entries()]) {
+        if (typeof value === 'string' && value.trim() === '') {
+            formData.delete(key);
+        }
+    }
 
     try {
-        const response = await fetch(collegeId ? `/api/colleges/${collegeId}` : '/api/colleges', {
-            method: collegeId ? 'PUT' : 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            },
-            body: JSON.stringify(data),
-        });
+        const response = await fetch(
+            collegeId ? `/api/colleges/${collegeId}` : '/api/colleges',
+            {
+                method: collegeId ? 'POST' : 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                },
+                body: formData,
+            }
+        );
 
         const result = await response.json();
 
@@ -71,18 +121,33 @@ collegeForm.addEventListener('submit', async (event) => {
             const validationErrors = result.errors
                 ? Object.values(result.errors).flat().join(' ')
                 : result.message || 'Could not save the college. Please check the details and try again.';
+
             throw new Error(validationErrors);
         }
 
-        showFormMessage(collegeId
-            ? 'College updated successfully. Returning to the college list…'
-            : 'College added successfully. Returning to the college list…', 'success');
+        showFormMessage(
+            collegeId
+                ? 'College updated successfully. Returning to the college list…'
+                : 'College added successfully. Returning to the college list…',
+            'success'
+        );
+
         collegeForm.reset();
-        window.setTimeout(() => { window.location.href = '/colleges'; }, 900);
+
+        window.setTimeout(() => {
+            window.location.href = '/colleges';
+        }, 900);
     } catch (error) {
-        showFormMessage(error.message || 'Unable to save the college. Please try again.', 'error');
+        showFormMessage(
+            error.message || 'Unable to save the college. Please try again.',
+            'error'
+        );
     } finally {
         submitButton.disabled = false;
         submitLabel.textContent = collegeId ? 'Save changes' : 'Add college';
     }
+    // Laravel method spoofing for multipart college updates.
+if (collegeId) {
+    formData.set('_method', 'PUT');
+}
 });

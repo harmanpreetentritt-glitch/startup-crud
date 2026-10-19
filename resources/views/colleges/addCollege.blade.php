@@ -19,6 +19,9 @@
 @push('scripts')
     @vite('resources/js/college-form.js')
 @endpush
+
+
+@section('content')
     <main class="form-page">
         <section class="form-card">
             <aside class="form-side">
@@ -58,7 +61,8 @@
                     hidden
                 ></div>
 
-                <form id="collegeForm">
+                <!-- <form id="collegeForm"> -->
+                    <form id="collegeForm" enctype="multipart/form-data">
                     <div class="field-grid">
                         <div class="field field-wide">
                             <label for="name">
@@ -202,6 +206,23 @@
                                 Paste a public image URL. Image file uploads are not enabled yet.
                             </small>
                         </div>
+<div class="field field-wide">
+    <label for="gallery_images">College gallery images</label>
+
+    <input
+        id="gallery_images"
+        name="gallery_images[]"
+        type="file"
+        accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+        multiple
+    >
+
+    <small>
+        Select multiple JPG, JPEG, PNG, or WebP images.
+        Maximum 10 images, up to 5 MB each.
+    </small>
+</div>
+
 
                         <div class="field field-wide">
                             <label for="description">Description</label>

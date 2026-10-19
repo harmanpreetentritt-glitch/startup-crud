@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\College;
 use Illuminate\Http\Request;
+use App\Models\CollegeImage;
 
 class CollegeController extends Controller
 {
@@ -87,6 +88,9 @@ public function index(Request $request)
 
             // Course information stored as JSON
             'course_details' => 'nullable|array',
+            // Gallery images
+            'gallery_images' => 'nullable|array|max:10',
+            'gallery_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
         ], [
             'name.required' => 'Please enter the college name.',
             'city.required' => 'Please enter the city.',
@@ -97,7 +101,24 @@ public function index(Request $request)
             'website.url' => 'Please enter a valid website URL (including http:// or https://).',
         ]);
 
-        $college = College::create($validated);
+        // $college = College::create($validated);
+        
+$galleryImages = $request->file('gallery_images', []);
+
+// Do not pass uploaded files to the colleges table.
+unset($validated['gallery_images']);
+
+$college = College::create($validated);
+
+// Save gallery images linked to this college.
+foreach ($galleryImages as $image) {
+    $path = $image->store('college-images', 'public');
+
+    $college->images()->create([
+        'image_path' => $path,
+    ]);
+}
+
 
         if ($request->expectsJson() || $request->ajax()) {
             return response()->json([
@@ -189,7 +210,11 @@ public function index(Request $request)
 
             // Course information
             'course_details' => 'nullable|array',
-        ], [
+            // Gallery images
+            'gallery_images' => 'sometimes|nullable|array|max:10',
+            'gallery_images.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+        ], 
+        [
             'name.required' => 'Please enter the college name.',
             'city.required' => 'Please enter the city.',
             'state.required' => 'Please enter the state.',
@@ -199,7 +224,22 @@ public function index(Request $request)
             'website.url' => 'Please enter a valid website URL (including http:// or https://).',
         ]);
 
-        $college->update($validated);
+        // $college->update($validated);
+        // Keep gallery files separate from college table fields.
+unset($validated['gallery_images']);
+
+$college->update($validated);
+
+// Save newly uploaded gallery images.
+if ($request->hasFile('gallery_images')) {
+    foreach ($request->file('gallery_images') as $image) {
+        $path = $image->store('college-images', 'public');
+
+        $college->images()->create([
+            'image_path' => $path,
+        ]);
+    }
+}
 
         if ($request->expectsJson() || $request->ajax()) {
             return response()->json([
