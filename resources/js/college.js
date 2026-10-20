@@ -136,6 +136,7 @@ document.getElementById('pagination')?.addEventListener('click', function (event
     });
 });
 
+
 // Keep search panel close button working
 const spInput = document.getElementById('spInput');
 const spClose = document.getElementById('spClose');
@@ -146,5 +147,17 @@ spInput?.addEventListener('input', function () {
     }
 });
 
+// Toggle filters panel
+const toggleFilters = document.getElementById('toggleFilters');
+const filtersPanel = document.getElementById('filtersPanel');
+
+toggleFilters?.addEventListener('click', function () {
+    if (!filtersPanel) return;
+
+    const isOpen = filtersPanel.classList.toggle('show');
+
+    toggleFilters.classList.toggle('active', isOpen);
+    toggleFilters.setAttribute('aria-expanded', isOpen);
+});
 // Start loading colleges
 loadColleges();

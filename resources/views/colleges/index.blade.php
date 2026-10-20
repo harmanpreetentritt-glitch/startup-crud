@@ -93,8 +93,19 @@
     <main class="container">
 
         <div class="layout">
+            <button type="button" id="toggleFilters" class="filter-toggle-btn">
+                <i class="fa-solid fa-sliders"></i>
+                Filters
+                <i class="fa-solid fa-chevron-down" id="filterArrow"></i>
+            </button>
+
+            <div id="filtersPanel" class="filters-panel">
+                <!-- Keep ALL your existing filters here exactly as they are -->
+            </div>
+            <div id="filterPannel">
 
             <aside class="filters" id="filters"></aside>
+            </div>
 
             <section class="results">
 
@@ -125,7 +136,7 @@
 
                 <div class="chips" id="chips"></div>
                 <p id="count" class="results-count" aria-live="polite"></p>
-                
+
 
                 <a class="add-college-link" href="{{ url('/colleges/create') }}">
                     + Add a college
@@ -166,20 +177,20 @@
     </button>
     <!-- Pagination -->
     <!-- <ul class="pagination">
-        <li class="{{ $colleges->onFirstPage() ? 'disabled' : '' }}">
-            <a href="{{ $colleges->previousPageUrl() }}">&laquo;</a>
-        </li>
-
-        @for ($i = 1; $i <= $colleges->lastPage(); $i++)
-            <li class="{{ $i == $colleges->currentPage() ? 'active' : '' }}">
-                <a href="{{ $colleges->url($i) }}">{{ $i }}</a>
+            <li class="{{ $colleges->onFirstPage() ? 'disabled' : '' }}">
+                <a href="{{ $colleges->previousPageUrl() }}">&laquo;</a>
             </li>
-        @endfor
 
-        <li class="{{ $colleges->hasMorePages() ? '' : 'disabled' }}">
-            <a href="{{ $colleges->nextPageUrl() }}">&raquo;</a>
-        </li>
-    </ul> -->
+            @for ($i = 1; $i <= $colleges->lastPage(); $i++)
+                <li class="{{ $i == $colleges->currentPage() ? 'active' : '' }}">
+                    <a href="{{ $colleges->url($i) }}">{{ $i }}</a>
+                </li>
+            @endfor
+
+            <li class="{{ $colleges->hasMorePages() ? '' : 'disabled' }}">
+                <a href="{{ $colleges->nextPageUrl() }}">&raquo;</a>
+            </li>
+        </ul> -->
 
 @endsection
 

@@ -2054,3 +2054,41 @@ a {
         border-color: #ddd;
         pointer-events: none;
     }
+
+    
+.filter-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 18px;
+    background: #4361ee;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.filter-toggle-btn:hover {
+    background: #354dcc;
+}
+
+.filters-panel {
+    display: none;
+    margin-top: 16px;
+}
+
+.filters-panel.show {
+    display: block;
+}
+
+#filterArrow {
+    transition: transform 0.2s ease;
+}
+
+#toggleFilters.active #filterArrow {
+    transform: rotate(180deg);
+}
