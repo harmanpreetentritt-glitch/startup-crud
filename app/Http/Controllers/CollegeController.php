@@ -30,15 +30,108 @@ public function index(Request $request)
     /**
      * Return all colleges as JSON.S
      */
-    public function apiIndex()
-    {
-        $colleges = College::orderBy('id', 'desc')->get();
+    // public function apiIndex()
+    // {
+    //     $colleges = College::orderBy('id', 'desc')->get();
 
-        return response()->json([
-            'message' => 'Colleges fetched successfully',
-            'data' => $colleges
-        ]);
+    //     return response()->json([
+    //         'message' => 'Colleges fetched successfully',
+    //         'data' => $colleges
+    //     ]);
+    // }
+    
+/**
+ * Return colleges as JSON, with optional basic filters.
+ */
+
+public function apiIndex(Request $request)
+{
+    $query = College::query();
+
+    // Filter by state.
+    if ($request->filled('state')) {
+        $query->where('state', 'LIKE', '%' . $request->state . '%');
     }
+
+    // Filter by city.
+    if ($request->filled('city')) {
+        $query->where('city', 'LIKE', '%' . $request->city . '%');
+    }
+
+    // Filter by institute type.
+    if ($request->filled('type')) {
+        $query->where('type', 'LIKE', '%' . $request->type . '%');
+    }
+
+    // Filter by stream.
+    if ($request->filled('stream')) {
+        $query->whereHas('courses', function ($courseQuery) use ($request) {
+            $courseQuery->where(
+                'stream',
+                'LIKE',
+                '%' . $request->stream . '%'
+            );
+        });
+    }
+
+    // Filter by degree.
+    if ($request->filled('degree')) {
+        $query->whereHas('courses', function ($courseQuery) use ($request) {
+            $courseQuery->where(
+                'degree',
+                'LIKE',
+                '%' . $request->degree . '%'
+            );
+        });
+    }
+
+    // Filter by study mode.
+    if ($request->filled('study_mode')) {
+        $query->whereHas('courses', function ($courseQuery) use ($request) {
+            $courseQuery->where(
+                'study_mode',
+                'LIKE',
+                '%' . $request->study_mode . '%'
+            );
+        });
+    }
+
+    // Filter by specialization.
+    if ($request->filled('specialization')) {
+        $query->whereHas('courses', function ($courseQuery) use ($request) {
+            $courseQuery->where(
+                'specialization',
+                'LIKE',
+                '%' . $request->specialization . '%'
+            );
+        });
+    }
+
+    // Filter by exam.
+    if ($request->filled('exam')) {
+        $query->whereHas('courses', function ($courseQuery) use ($request) {
+            $courseQuery->where(function ($examQuery) use ($request) {
+                $examQuery->where(
+                    'exam',
+                    'LIKE',
+                    '%' . $request->exam . '%'
+                )->orWhere(
+                    'exam_required',
+                    'LIKE',
+                    '%' . $request->exam . '%'
+                );
+            });
+        });
+    }
+
+    $colleges = $query->orderBy('id', 'desc')->get();
+
+    return response()->json([
+        'message' => 'Colleges fetched successfully',
+        'data' => $colleges
+    ]);
+}
+
 
     /**
      * Return courses stored inside colleges.course_details.
